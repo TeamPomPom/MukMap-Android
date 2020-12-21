@@ -2,4 +2,10 @@
     <style name="Widget.MukMap.Toolbar.Base" parent="Widget.AppCompat.Toolbar">
 
     </style>
+
+    <style name="Widget.MukMap.Button.Subscribe" parent="Widget.AppCompat.Button">
+        <item name="android:background">@drawable/back_button_subscribe</item>
+        <item name="android:padding">0dp</item>
+        <item name="backgroundTint">@null</item>
+    </style>
 </resources>

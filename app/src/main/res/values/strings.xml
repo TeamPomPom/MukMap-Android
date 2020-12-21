@@ -29,4 +29,5 @@
     <string name="review_count">방문 리뷰 %d개</string>
     <string name="subscribers_count">구독자 %d</string>
     <string name="subscribers_count_k">구독자 %dk</string>
+    <string name="channel_image">channel_image</string>
 </resources>
