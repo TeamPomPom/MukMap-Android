@@ -1,27 +1,17 @@
 <resources>
     <string name="app_name">MukMap</string>
 
-    <!--Component-->
     <string name="subscribe">구독</string>
     <string name="subscribing">구독중</string>
-
-    <!--Restaurant Detail-->
+    <string name="please_enter_your_search_term">검색어를 입력하세요</string>
     <string name="visited_channels">다녀간 유투버들</string>
     <string name="review_video">이 가게의 리뷰 영상</string>
-
-    <!--Login-->
     <string name="login_text_title">Log in</string>
     <string name="google">Google</string>
     <string name="facebook">Facebook</string>
     <string name="apple">Apple</string>
-
-    <!--Favorite-->
     <string name="favorite_list">찜 목록</string>
-
-    <!--Subscribe-->
     <string name="subscript_list">구독 목록</string>
-
-    <!--Channel Detail-->
     <string name="channel_info">채널 정보</string>
     <string name="mukbang_video">먹방 영상</string>
     <string name="kind_of_foods">방문한 가게의 음식종류</string>
@@ -30,4 +20,6 @@
     <string name="subscribers_count">구독자 %d</string>
     <string name="subscribers_count_k">구독자 %dk</string>
     <string name="channel_image">channel_image</string>
+    <string name="the_restaurant_that_someone_searching">지금 다른 사람들이 찾는 음식점</string>
+    <string name="image_button">image_button</string>
 </resources>

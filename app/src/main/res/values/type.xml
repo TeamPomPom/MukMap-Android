@@ -12,22 +12,22 @@
     </style>
 
     <style name="TextAppearance.MukMap.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
-        <item name="android:textStyle">normal</item>
+        <item name="android:textStyle">bold</item>
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
 
     <style name="TextAppearance.MukMap.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
-        <item name="android:textSize">16sp</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
 
     <style name="TextAppearance.MukMap.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">16sp</item>
     </style>
 
     <style name="TextAppearance.MukMap.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="TextAppearance.MukMap.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
