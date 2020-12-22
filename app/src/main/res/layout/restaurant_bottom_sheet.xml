@@ -20,7 +20,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:text="존맛탱 한우 먹고 싶은 가게"
-        android:textAppearance="@style/TextAppearance.MukMap.Headline2"
+        android:textAppearance="?attr/textAppearanceHeadline2"
         app:layout_constraintEnd_toStartOf="@id/btn_favorite"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
