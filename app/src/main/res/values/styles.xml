@@ -16,8 +16,12 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
-    <style name="Widget.MukMap.TextView.Headline" parent="Widget.MukMap.TextView.Base">
+    <style name="Widget.MukMap.TextView.Headline3" parent="Widget.MukMap.TextView.Base">
         <item name="android:textAppearance">?attr/textAppearanceHeadline3</item>
+    </style>
+
+    <style name="Widget.MukMap.TextView.Headline1" parent="Widget.MukMap.TextView.Base">
+        <item name="android:textAppearance">?attr/textAppearanceHeadline1</item>
     </style>
 
     <style name="Widget.MukMap.TextView.ListTitle" parent="Widget.MukMap.TextView.Base">

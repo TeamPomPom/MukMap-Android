@@ -4,6 +4,7 @@
     <style name="TextAppearance.MukMap.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="android:textSize">28sp</item>
         <item name="android:textStyle">bold</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
 
     <style name="TextAppearance.MukMap.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
@@ -50,6 +51,11 @@
     
     <style name="TextAppearance.MukMap.Button" parent="TextAppearance.MaterialComponents.Button">
         <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextAppearance.MukMap.Button.Bold" parent="TextAppearance.MukMap.Button">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.MukMap.Button.Subscribe" parent="TextAppearance.MukMap.Button">
