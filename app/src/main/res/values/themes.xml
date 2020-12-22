@@ -8,5 +8,18 @@
         <item name="colorAccent">@color/blue_200</item>
         <item name="colorSurface">@color/white_500</item>
         <item name="colorOnSurface">@color/black_500</item>
+
+        <item name="textAppearanceHeadline1">@style/TextAppearance.MukMap.Headline1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.MukMap.Headline2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.MukMap.Headline3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.MukMap.Headline4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.MukMap.Headline5</item>
+        <item name="textAppearanceHeadline6">@style/TextAppearance.MukMap.Headline6</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.MukMap.Subtitle1</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.MukMap.Subtitle2</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.MukMap.Body1</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.MukMap.Body2</item>
+        <item name="textAppearanceButton">@style/TextAppearance.MukMap.Button</item>
+
     </style>
 </resources>
