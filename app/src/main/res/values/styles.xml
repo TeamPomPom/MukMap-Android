@@ -3,9 +3,24 @@
 
     </style>
 
-    <style name="Widget.MukMap.Button.Subscribe" parent="Widget.AppCompat.Button">
-        <item name="android:background">@drawable/back_button_subscribe</item>
+    <style name="Widget.MukMap.Button.Base" parent="Widget.AppCompat.Button">
         <item name="android:padding">0dp</item>
         <item name="backgroundTint">@null</item>
+    </style>
+
+    <style name="Widget.MukMap.Button.Subscribe" parent="Widget.MukMap.Button.Base">
+        <item name="android:background">@drawable/back_button_subscribe</item>
+    </style>
+
+    <style name="Widget.MukMap.TextView.Base" parent="Widget.MaterialComponents.TextView">
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="Widget.MukMap.TextView.Headline" parent="Widget.MukMap.TextView.Base">
+        <item name="android:textAppearance">?attr/textAppearanceHeadline3</item>
+    </style>
+
+    <style name="Widget.MukMap.TextView.ListTitle" parent="Widget.MukMap.TextView.Base">
+        <item name="android:textAppearance">?attr/textAppearanceHeadline4</item>
     </style>
 </resources>
