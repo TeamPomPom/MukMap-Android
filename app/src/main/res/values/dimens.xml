@@ -3,4 +3,5 @@
     <dimen name="padding_side">10dp</dimen>
     <dimen name="margin_body">4dp</dimen>
     <dimen name="padding_recycler">6dp</dimen>
+    <dimen name="margin_bottom_sheet_top">12dp</dimen>
 </resources>

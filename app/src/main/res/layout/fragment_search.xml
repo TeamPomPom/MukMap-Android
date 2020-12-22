@@ -2,21 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="@dimen/padding_side">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:hint="@string/please_enter_your_search_term"
-        android:importantForAutofill="no"
-        android:inputType="" />
+    <include layout="@layout/view_search"/>
 
     <TextView
         style="@style/Widget.MukMap.TextView.Headline"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:text="@string/the_restaurant_that_someone_searching" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray_300"
+        android:layout_marginBottom="@dimen/margin_body"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
