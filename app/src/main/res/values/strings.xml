@@ -22,4 +22,6 @@
     <string name="channel_image">channel_image</string>
     <string name="the_restaurant_that_someone_searching">지금 다른 사람들이 찾는 음식점</string>
     <string name="image_button">image_button</string>
+    <string name="image">image</string>
+    <string name="video_image">video_image</string>
 </resources>

@@ -21,11 +21,10 @@
         app:layout_constraintBottom_toTopOf="@id/tv_address"/>
 
     <ImageButton
-        style="@style/Widget.MukMap.Button.Base"
+        style="@style/Widget.MukMAp.ImageButton.Base"
         android:id="@+id/btn_favorite"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@android:color/transparent"
         android:src="@drawable/selector_button_favorite"
         app:layout_constraintBottom_toBottomOf="@id/tv_restaurant"
         app:layout_constraintEnd_toEndOf="parent"

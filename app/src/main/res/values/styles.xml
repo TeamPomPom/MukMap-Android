@@ -12,6 +12,14 @@
         <item name="android:background">@drawable/back_button_subscribe</item>
     </style>
 
+    <style name="Widget.MukMAp.ImageButton.Base" parent="Widget.MukMap.Button.Base">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="Widget.MukMAp.ImageButton.Back" parent="Widget.MukMAp.ImageButton.Base">
+        <item name="android:src">@drawable/ic_back</item>
+    </style>
+
     <style name="Widget.MukMap.TextView.Base" parent="Widget.MaterialComponents.TextView">
         <item name="android:gravity">center_vertical</item>
     </style>
@@ -22,6 +30,7 @@
 
     <style name="Widget.MukMap.TextView.Headline1" parent="Widget.MukMap.TextView.Base">
         <item name="android:textAppearance">?attr/textAppearanceHeadline1</item>
+        <item name="android:lineSpacingMultiplier">0.7</item>
     </style>
 
     <style name="Widget.MukMap.TextView.ListTitle" parent="Widget.MukMap.TextView.Base">

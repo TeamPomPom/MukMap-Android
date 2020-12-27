@@ -20,12 +20,11 @@
             android:text="맛있는 고깃집" />
 
         <ImageButton
-            style="@style/Widget.MukMap.Button.Base"
+            style="@style/Widget.MukMAp.ImageButton.Base"
             android:layout_width="60dp"
             android:layout_height="40dp"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:background="@android:color/transparent"
             android:contentDescription="@string/image_button"
             android:padding="10dp"
             android:scaleType="fitCenter"
