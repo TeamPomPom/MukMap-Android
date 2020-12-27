@@ -28,7 +28,7 @@
     </LinearLayout>
 
     <include
-        layout="@layout/item_search_result_channel"
+        layout="@layout/item_simple_info_channel"
         android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView

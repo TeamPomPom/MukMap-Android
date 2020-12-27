@@ -11,5 +11,5 @@
     app:behavior_peekHeight="100dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-   <include layout="@layout/item_restaurant_with_channels"/>
+   <include layout="@layout/item_simple_info_restaurant"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
