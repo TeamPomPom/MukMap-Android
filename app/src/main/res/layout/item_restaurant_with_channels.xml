@@ -20,14 +20,18 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/tv_address"/>
 
-    <Button
+    <ImageButton
+        style="@style/Widget.MukMap.Button.Base"
         android:id="@+id/btn_favorite"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/selector_button_favorite"
         app:layout_constraintBottom_toBottomOf="@id/tv_restaurant"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_restaurant"
-        app:layout_constraintTop_toTopOf="@id/tv_restaurant" />
+        app:layout_constraintTop_toTopOf="@id/tv_restaurant"
+        android:contentDescription="@string/image_button" />
 
     <TextView
         android:id="@+id/tv_address"
