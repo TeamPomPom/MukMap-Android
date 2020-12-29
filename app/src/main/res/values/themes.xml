@@ -5,6 +5,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/yellow_500</item>
         <item name="colorSecondary">@color/gray_600</item>
+        <item name="colorOnSecondary">@color/gray_300</item>
         <item name="colorAccent">@color/blue_200</item>
         <item name="colorSurface">@color/white_500</item>
         <item name="colorOnSurface">@color/black_500</item>
