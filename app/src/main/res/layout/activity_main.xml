@@ -30,4 +30,9 @@
 
     <include layout="@layout/search_results_bottom_sheet" />
 
+    <include layout="@layout/bottom_navigation"
+        android:layout_gravity="bottom"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
