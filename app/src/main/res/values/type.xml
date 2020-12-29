@@ -14,13 +14,19 @@
 
     <style name="TextAppearance.MukMap.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
 
     <style name="TextAppearance.MukMap.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">?attr/colorOnSurface</item>
+    </style>
+
+    <style name="TextAppearance.MukMap.Headline4.Bold" parent="TextAppearance.MukMap.Headline4">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.MukMap.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
@@ -62,6 +68,10 @@
         <item name="android:textColor">@drawable/color_text_subscribe</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="TextAppearance.MukMap.Caption" parent="TextAppearance.MaterialComponents.Caption">
+        <item name="android:textColor">?attr/colorOnSurface</item>
     </style>
 
 </resources>
