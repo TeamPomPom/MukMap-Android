@@ -27,4 +27,7 @@
     <string name="map">지도</string>
     <string name="channel">채널</string>
     <string name="setting">설정</string>
+    <string name="all_notification">전체 알림</string>
+    <string name="subscribe_notification">구독한 채널 업데이트 알림</string>
+    <string name="question">개발자에게 문의</string>
 </resources>

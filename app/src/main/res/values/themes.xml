@@ -11,6 +11,7 @@
         <item name="colorOnSurface">@color/black_500</item>
 
         <item name="actionBarStyle">@style/Widget.MukMap.Toolbar.Base</item>
+        <item name="switchStyle">@style/Widget.MukMap.Switch</item>
 
         <item name="textAppearanceHeadline1">@style/TextAppearance.MukMap.Headline1</item>
         <item name="textAppearanceHeadline2">@style/TextAppearance.MukMap.Headline2</item>
