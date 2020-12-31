@@ -1,6 +1,9 @@
 <resources>
     <style name="Widget.MukMap.Toolbar.Base" parent="Widget.AppCompat.Toolbar">
-
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:gravity">center</item>
+        <item name="minHeight">?attr/actionBarSize</item>
+        <item name="titleEnabled">false</item>
     </style>
 
     <style name="Widget.MukMap.Button.Base" parent="Widget.AppCompat.Button">
