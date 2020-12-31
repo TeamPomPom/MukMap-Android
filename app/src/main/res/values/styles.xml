@@ -4,6 +4,7 @@
         <item name="android:gravity">center</item>
         <item name="minHeight">?attr/actionBarSize</item>
         <item name="titleEnabled">false</item>
+        <item name="colorControlNormal">?attr/colorPrimary</item>
     </style>
 
     <style name="Widget.MukMap.Button.Base" parent="Widget.AppCompat.Button">
