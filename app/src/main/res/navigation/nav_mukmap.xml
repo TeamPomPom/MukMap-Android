@@ -2,18 +2,33 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_mukmap">
+    android:id="@+id/nav_mukmap"
+    app:startDestination="@layout/fragment_main">
 
 
     <fragment
         android:id="@+id/mainFragment"
         android:label="Main"
-        tools:layout="@layout/fragment_main"/>
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_restaurantDetailFragment"
+            app:destination="@id/restaurantDetailFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_channelDetailFragment"
+            app:destination="@id/channelDetailFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_searchFragment"
+            app:destination="@id/searchFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/loginFragment"
         android:label="Login"
-        tools:layout="@layout/fragment_login"/>
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/searchFragment"
@@ -28,12 +43,20 @@
     <fragment
         android:id="@+id/favoritesFragment"
         android:label="Favorites"
-        tools:layout="@layout/fragment_favorites"/>
+        tools:layout="@layout/fragment_favorites">
+        <action
+            android:id="@+id/action_favoritesFragment_to_restaurantDetailFragment"
+            app:destination="@id/restaurantDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/subscribesFragment"
         android:label="Subscribes"
-        tools:layout="@layout/fragment_subscribes"/>
+        tools:layout="@layout/fragment_subscribes">
+        <action
+            android:id="@+id/action_subscribesFragment_to_channelDetailFragment"
+            app:destination="@id/channelDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/channelDetailFragment"

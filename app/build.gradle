@@ -22,6 +22,10 @@ android {
         }
     }
 
+    buildFeatures {
+        viewBinding = true
+    }
+
 }
 
 dependencies {
@@ -34,6 +38,7 @@ dependencies {
     implementation "androidx.core:core-ktx:$ktx_core_version"
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
     implementation "androidx.recyclerview:recyclerview:$recycler_view_version"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$test_ext_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
