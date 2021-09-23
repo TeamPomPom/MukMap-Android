@@ -36,17 +36,15 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layout_app_bar"
-        app:layout_constraintBottom_toBottomOf="parent"
-
         app:defaultNavHost="true"
-        app:navGragh="@navigation/nav_mukmap"
-        />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layout_app_bar"
+        app:navGraph="@navigation/nav_mukmap" />
 
     <include
-        android:id="nav_bottom"
+        android:id="@+id/nav_bottom"
         layout="@layout/bottom_navigation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
