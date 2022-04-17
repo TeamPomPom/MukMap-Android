@@ -1,2 +1,6 @@
 rootProject.name='MukMap'
-include ':presentationlayer'
+include ':presentation'
+include ':data'
+include ':domain'
+include ':remote'
+include ':local'
