@@ -1,17 +1,20 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-kapt'
+plugins {
+    id("com.android.application")
+    id("kotlin-android")
+    id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
+}
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion 34
+    buildToolsVersion "33.0.3"
 
     defaultConfig {
         applicationId "team.pompom.mukmap"
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdkVersion 26
+        targetSdkVersion 34
         versionCode 1
-        versionName "0.1"
+        versionName "0.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -39,7 +42,7 @@ android {
 }
 
 dependencies {
-    implementation project(':data')
+    implementation project(':domain')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.google.android.material:material:$material_version"
@@ -68,4 +71,8 @@ dependencies {
     // RxJava
     implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
     implementation 'com.jakewharton.rxbinding3:rxbinding:3.1.0'
+
+    // hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    implementation "com.google.dagger:hilt-compiler:$hilt_version"
 }
