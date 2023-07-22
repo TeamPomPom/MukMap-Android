@@ -1,0 +1,61 @@
+plugins {
+    id("com.android.application")
+    id("kotlin-android")
+    id ("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
+}
+
+android {
+    namespace "team.pompom.mukmap"
+    compileSdkVersion 33
+    buildToolsVersion '33.0.0'
+
+    defaultConfig {
+        applicationId "team.pompom.mukmap"
+        minSdkVersion 26
+        targetSdkVersion 33
+        versionCode 1
+        versionName "0.1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    buildFeatures {
+        dataBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    packagingOptions {
+        resources.pickFirsts.add("META-INF/gradle/incremental.annotation.processors")
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
+}
+
+dependencies {
+    implementation project(':domain')
+    implementation project(':data')
+    implementation project(':remote')
+    implementation project(':local')
+    implementation project(':presentation')
+
+    // hilt
+    implementation "com.google.dagger:hilt-android:2.44"
+    implementation "com.google.dagger:hilt-android-compiler:2.44"
+    kapt "com.google.dagger:hilt-android-compiler:2.44"
+    implementation "com.google.dagger:dagger-android-support:2.44"
+}
