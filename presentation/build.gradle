@@ -1,18 +1,19 @@
 plugins {
     id("com.android.application")
     id("kotlin-android")
-    id("kotlin-kapt")
+    id ("kotlin-kapt")
     id("dagger.hilt.android.plugin")
 }
 
 android {
-    compileSdkVersion 34
-    buildToolsVersion "33.0.3"
+    namespace "team.pompom.mukmap"
+    compileSdkVersion 33
+    buildToolsVersion '33.0.0'
 
     defaultConfig {
         applicationId "team.pompom.mukmap"
         minSdkVersion 26
-        targetSdkVersion 34
+        targetSdkVersion 33
         versionCode 1
         versionName "0.1.0"
 
@@ -35,6 +36,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    packagingOptions {
+        resources.pickFirsts.add("META-INF/gradle/incremental.annotation.processors")
+    }
+
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
@@ -43,10 +48,13 @@ android {
 
 dependencies {
     implementation project(':domain')
+    implementation project(':data')
+    implementation project(':remote')
+    implementation project(':local')
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.google.android.material:material:$material_version"
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.9.0"
     implementation "androidx.cardview:cardview:$card_view_version"
     implementation "androidx.appcompat:appcompat:$app_compat_version"
     implementation "com.android.support:design:$design_version"
@@ -54,6 +62,7 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$constraint_layout_version"
     implementation "androidx.recyclerview:recyclerview:$recycler_view_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.navigation:navigation-runtime-ktx:2.6.0'
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "androidx.test.ext:junit:$test_ext_junit_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
@@ -73,6 +82,8 @@ dependencies {
     implementation 'com.jakewharton.rxbinding3:rxbinding:3.1.0'
 
     // hilt
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    implementation "com.google.dagger:hilt-compiler:$hilt_version"
+    implementation "com.google.dagger:hilt-android:2.44"
+    implementation "com.google.dagger:hilt-android-compiler:2.44"
+    kapt "com.google.dagger:hilt-android-compiler:2.44"
+    implementation "com.google.dagger:dagger-android-support:2.44"
 }

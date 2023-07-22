@@ -1,15 +1,15 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id 'dagger.hilt.android.plugin'
 }
 
 android {
-    compileSdkVersion 34
+    namespace "team.pompom.mukmap.domain"
+    compileSdkVersion 33
 
     defaultConfig {
         minSdkVersion 26
-        targetSdkVersion 34
+        targetSdkVersion 33
         versionCode 1
         versionName "0.1.0"
 
@@ -33,7 +33,7 @@ android {
 }
 
 dependencies {
-    // hilt
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    implementation "com.google.dagger:hilt-compiler:$hilt_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
+    // Inject 만 활용
+    implementation "javax.inject:javax.inject:1"
 }

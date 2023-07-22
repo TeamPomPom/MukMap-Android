@@ -1,6 +1,7 @@
 package team.pompom.mukmap.model.remote.init
 
 import team.pompom.mukmap.base.BaseMapper
+import team.pompom.mukmap.exception.init.InitException
 import team.pompom.mukmap.model.init.InitEntity
 
 /**
@@ -9,8 +10,8 @@ import team.pompom.mukmap.model.init.InitEntity
 object RemoteInitDataMapper : BaseMapper<RemoteInitDataModel, InitEntity> {
     override fun toEntity(data: RemoteInitDataModel): InitEntity {
         return InitEntity(
-            appMinVersion = data.minVersion,
-            appLatestVersion = data.currVersion,
+            appMinVersion = data.result?.minAppVersion ?: throw InitException.NoMinAppVersionException,
+            appLatestVersion = data.result?.currAppVersion ?: throw InitException.NoCurrAppVersionException,
         )
     }
 }
