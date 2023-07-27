@@ -8,5 +8,5 @@ import team.pompom.mukmap.model.restaurants.RestaurantsEntity
  * 음식점 정보에 대한 UseCase
  */
 interface RestaurantRepository {
-    fun getRestaurants(appName: String) : Flow<DomainResultModel<RestaurantsEntity>>
+    fun getRestaurants(refreshRestaurant: Boolean, appName: String) : Flow<DomainResultModel<RestaurantsEntity>>
 }

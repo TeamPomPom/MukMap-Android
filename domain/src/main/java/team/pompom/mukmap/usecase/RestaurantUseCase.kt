@@ -9,5 +9,5 @@ import javax.inject.Inject
 class RestaurantUseCase @Inject constructor(
     private val restaurantRepository : RestaurantRepository
 ) {
-    fun getRestaurants(appName: String) = restaurantRepository.getRestaurants(appName)
+    fun getRestaurants(refreshRestaurant: Boolean, appName: String) = restaurantRepository.getRestaurants(refreshRestaurant, appName)
 }
