@@ -1,8 +1,10 @@
 package team.pompom.mukmap.repository
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import team.pompom.mukmap.extension.domainResultFlow
-import team.pompom.mukmap.extension.domainResultZip
 import team.pompom.mukmap.gateway.local.LocalDataVersionDataSource
 import team.pompom.mukmap.gateway.remote.RemoteInitDataSource
 import team.pompom.mukmap.mapper.InitDataMapper
@@ -23,10 +25,13 @@ class InitRepositoryImpl @Inject constructor(
         domainResultFlow {
             val cachedDataVersion = localDataVersionDataSource.getDataVersion()
             val remoteInitData = remoteInitDataSource.getInitData(appName)
-            if (cachedDataVersion?.dataVersion != remoteInitData.result?.dataVersion) {
-                localDataVersionDataSource.deleteAllDataVersion()
-                localDataVersionDataSource.insertDataVersion(InitDataMapper.fromRemoteToLocal(remoteInitData))
+            InitDataMapper.toEntity(remoteInitData, cachedDataVersion).also {
+                if (cachedDataVersion?.dataVersion != remoteInitData.result?.dataVersion) {
+                    localDataVersionDataSource.deleteAllDataVersion()
+                    coroutineScope {
+                        async(Dispatchers.IO) { localDataVersionDataSource.insertDataVersion(InitDataMapper.fromRemoteToLocal(remoteInitData)) }
+                    }
+                }
             }
-            InitDataMapper.toEntity(remoteInitData, cachedDataVersion)
         }
 }

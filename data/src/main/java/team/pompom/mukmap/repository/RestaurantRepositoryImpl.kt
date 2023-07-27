@@ -1,6 +1,8 @@
 package team.pompom.mukmap.repository
 
-import android.util.Log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import team.pompom.mukmap.extension.domainResultFlow
 import team.pompom.mukmap.gateway.local.LocalRestaurantDataSource
@@ -19,7 +21,9 @@ class RestaurantRepositoryImpl @Inject constructor(
             if (refreshRestaurant) {
                 remoteRestaurantDataSource.getRestaurants(appName).also {
                     localRestaurantDataSource.deleteAllRestaurants()
-                    localRestaurantDataSource.insertRestaurants(RestaurantDataMapper.listFromRemoteToLocal(it))
+                    coroutineScope {
+                        async(Dispatchers.IO) { localRestaurantDataSource.insertRestaurants(RestaurantDataMapper.listFromRemoteToLocal(it)) }
+                    }
                 }.run {
                     RestaurantDataMapper.fromRemoteToEntity(this)
                 }
