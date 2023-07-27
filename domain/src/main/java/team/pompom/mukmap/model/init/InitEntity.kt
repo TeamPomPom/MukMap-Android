@@ -7,5 +7,6 @@ import team.pompom.mukmap.model.base.BaseEntity
  */
 data class InitEntity(
     val appMinVersion: String,
-    val appLatestVersion: String
+    val appLatestVersion: String,
+    val dataVersion: Int,
 ) : BaseEntity

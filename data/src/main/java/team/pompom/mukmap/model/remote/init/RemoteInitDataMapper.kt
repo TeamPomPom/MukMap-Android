@@ -11,7 +11,8 @@ object RemoteInitDataMapper : BaseMapper<RemoteInitDataModel, InitEntity> {
     override fun toEntity(data: RemoteInitDataModel): InitEntity {
         return InitEntity(
             appMinVersion = data.result?.minAppVersion ?: throw InitException.NoMinAppVersionException,
-            appLatestVersion = data.result?.currAppVersion ?: throw InitException.NoCurrAppVersionException,
+            appLatestVersion = data.result.currAppVersion ?: throw InitException.NoCurrAppVersionException,
+            dataVersion = data.result.dataVersion ?: throw InitException.NoDataVersionException
         )
     }
 }

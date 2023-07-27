@@ -7,4 +7,5 @@ package team.pompom.mukmap.exception.init
 sealed class InitException : Throwable() {
     object NoMinAppVersionException : InitException()
     object NoCurrAppVersionException : InitException()
+    object NoDataVersionException : InitException()
 }
