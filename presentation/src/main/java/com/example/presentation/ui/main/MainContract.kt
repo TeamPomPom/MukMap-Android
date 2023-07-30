@@ -1,4 +1,4 @@
-package com.example.presentation.main
+package com.example.presentation.ui.main
 
 import com.example.presentation.base.vm.ViewEvent
 import com.example.presentation.base.vm.ViewSideEffect

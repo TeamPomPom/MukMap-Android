@@ -1,4 +1,4 @@
-package com.example.presentation.splash
+package com.example.presentation.ui.splash
 
 import com.example.presentation.base.vm.ViewEvent
 import com.example.presentation.base.vm.ViewSideEffect

@@ -1,4 +1,4 @@
-package com.example.presentation.main
+package com.example.presentation.ui.main
 
 import com.example.presentation.base.vm.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel

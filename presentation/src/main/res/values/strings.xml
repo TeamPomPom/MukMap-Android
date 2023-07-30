@@ -1,3 +1,4 @@
 <resources>
-    <string name="title_activity_main">MainActivity</string>
+    <!--  Splash  -->
+    <string name="splash_main_title">백지도</string>
 </resources>

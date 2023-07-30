@@ -1,10 +1,22 @@
-package com.example.presentation.splash.screen
+package com.example.presentation.ui.splash.screen
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import com.example.presentation.main.MainContract
-import com.example.presentation.splash.SplashContract
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.example.presentation.R
+import com.example.presentation.theme.MukMapTheme
+import com.example.presentation.ui.base.ImageWithTextSlot
+import com.example.presentation.ui.splash.SplashContract
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach
@@ -27,18 +39,23 @@ fun SplashScreen(
     }
 
     when {
-        state.networkLoading -> SplashLoading()
+        state.networkLoading -> {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                SplashLoading()
+            }
+        }
         state.networkError -> SplashNetworkError()
         state.restaurants.isNotEmpty() -> onEventSent(SplashContract.Event.SuccessToGetRestaurant)
     }
 }
 
-@Composable
-fun SplashLoading() {
-    Text(text = "스플래쉬 로딩화면 ...")
-}
 
 @Composable
 fun SplashNetworkError() {
+    // TODO : ErrorPage View 작업
     Text(text = "에러 있어용")
 }

@@ -3,9 +3,9 @@ package com.example.presentation.navigation
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.presentation.splash.SplashContract
-import com.example.presentation.splash.SplashViewModel
-import com.example.presentation.splash.screen.SplashScreen
+import com.example.presentation.ui.splash.SplashContract
+import com.example.presentation.ui.splash.SplashViewModel
+import com.example.presentation.ui.splash.screen.SplashScreen
 
 @Composable
 fun SplashScreenDestination(

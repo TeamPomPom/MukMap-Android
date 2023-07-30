@@ -1,9 +1,9 @@
-package com.example.presentation.main.screen
+package com.example.presentation.ui.main.screen
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import com.example.presentation.main.MainContract
+import com.example.presentation.ui.main.MainContract
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onEach

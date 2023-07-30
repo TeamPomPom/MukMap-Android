@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:name=".BaekApplication"
         android:theme="@style/Theme.MukMap">
-        <activity android:name="com.example.presentation.splash.SplashActivity"
+        <activity android:name="com.example.presentation.ui.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
