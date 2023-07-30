@@ -17,12 +17,18 @@ data class RemoteRestaurantDataModel(
             @SerializedName("lat") var lat: String? = null,
             @SerializedName("lng") var lng: String? = null,
             @SerializedName("full_address") var fullAddress: String? = null,
-            @SerializedName("youtube_video") var youtubeVideo: YoutubeVideo? = null
+            @SerializedName("youtube_video") var youtubeVideo: YoutubeVideo? = null,
+            @SerializedName("main_category") var mainCategory: String? = null,
+            @SerializedName("sub_category") var subCategory: List<String>? = null,
+            @SerializedName("province") var province: String? = null,
+            @SerializedName("district") var district: String? = null,
+            @SerializedName("old_district") var oldDistrict: String? = null,
         ) {
             data class YoutubeVideo(
                 @SerializedName("youtube_url") var youtubeUrl: String? = null,
                 @SerializedName("youtube_thumbnail") var youtubeThumbnail: String? = null,
-                @SerializedName("naver_place_url") var naverPlaceUrl: String? = null
+                @SerializedName("naver_place_url") var naverPlaceUrl: String? = null,
+                @SerializedName("episode_num") var episodeNum: Int? = null,
             )
         }
     }

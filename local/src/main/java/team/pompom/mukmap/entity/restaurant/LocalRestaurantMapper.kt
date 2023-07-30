@@ -14,6 +14,12 @@ object LocalRestaurantMapper : BaseMapper<LocalRestaurantDataModel, LocalRestaur
             youtubeThumbnail = data.youtubeThumbnail,
             youtubeUrl = data.youtubeUrl,
             naverPlaceUrl = data.naverPlaceUrl,
+            mainCategory = data.mainCategory,
+            subCategory = data.subCategory,
+            episodeNum = data.episodeNum,
+            province = data.province,
+            district = data.district,
+            oldDistrict = data.oldDistrict,
         )
     }
 
@@ -27,6 +33,12 @@ object LocalRestaurantMapper : BaseMapper<LocalRestaurantDataModel, LocalRestaur
             youtubeThumbnail = data.youtubeThumbnail,
             youtubeUrl = data.youtubeUrl,
             naverPlaceUrl = data.naverPlaceUrl,
+            mainCategory = data.mainCategory,
+            subCategory = data.subCategory?.let { ArrayList(it) },
+            episodeNum = data.episodeNum,
+            province = data.province,
+            district = data.district,
+            oldDistrict = data.oldDistrict,
         )
     }
 }

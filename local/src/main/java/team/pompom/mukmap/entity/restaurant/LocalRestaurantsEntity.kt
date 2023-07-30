@@ -15,4 +15,10 @@ data class LocalRestaurantsEntity(
     val youtubeThumbnail: String?,
     val youtubeUrl: String?,
     val naverPlaceUrl: String?,
+    val mainCategory: String?,
+    val subCategory: ArrayList<String>?,
+    val episodeNum: Int?,
+    val province: String?,
+    val district: String?,
+    val oldDistrict: String?,
 ) : BaseLocalEntity

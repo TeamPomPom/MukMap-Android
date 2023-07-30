@@ -37,15 +37,23 @@ fun RestaurantInfo(
         if (restaurant.fullAddress != null) {
             RestaurantAddress(restaurant.fullAddress)
         }
-        // TODO : Tag 텍스트 여부 검사
-        RestaurantTags()
+        RestaurantTags(restaurant = restaurant)
     }
 }
 
 @Composable
-private fun RestaurantTags() {
+private fun RestaurantTags(
+    restaurant: RestaurantsEntity.Restaurant
+) {
     Spacer(modifier = Modifier.height(7.dp))
-    TagText(tags = listOf("곡성", "콩국수", "EP01", "1화"))
+    TagText(
+        tags = mutableListOf<String>().apply {
+            add(restaurant.province ?: "")
+            addAll(restaurant.subCategory ?: listOf())
+            add("EP_${restaurant.episodeNum}")
+            add("${restaurant.episodeNum}화")
+        }
+    )
 }
 
 @Composable

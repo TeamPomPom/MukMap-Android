@@ -84,12 +84,13 @@ fun RestaurantDetail(
                     verticalArrangement = Arrangement.Center
                 ) {
                     Text(
-                        text = "님아 그 시장을 가오_EP. 01_곡성 ",
+                        text = "${restaurant.name}_EP. ${restaurant.episodeNum}_${restaurant.district}",
                         style = titleFont(fontSize = 12.sp),
                         color = primaryContent
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
+                        // TODO : 기획 확인 필요
                         text = "“백종원이 누군디?” 백종원을 모르는 순수한 사장님의 찐한 콩국수집",
                         style = contentFont(fontSize = 12.sp),
                         color = primaryContent

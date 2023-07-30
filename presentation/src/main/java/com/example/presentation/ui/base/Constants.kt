@@ -11,6 +11,12 @@ val dummyRestaurant = RestaurantsEntity.Restaurant(
     youtubeThumbnail = "",
     youtubeUrl = "",
     naverPlaceUrl = "",
+    mainCategory = "한식",
+    subCategory = listOf("닭발", "닭목", "치킨"),
+    episodeNum = 1,
+    province = "전남",
+    district = "해남군",
+    oldDistrict = "학의리",
 )
 
 val dummyRestaurantLongType = RestaurantsEntity.Restaurant(
@@ -22,4 +28,10 @@ val dummyRestaurantLongType = RestaurantsEntity.Restaurant(
     youtubeThumbnail = "",
     youtubeUrl = "",
     naverPlaceUrl = "",
+    mainCategory = "한식",
+    subCategory = listOf("닭발", "닭목", "치킨"),
+    episodeNum = 1,
+    province = "전남",
+    district = "해남군",
+    oldDistrict = "학의리",
 )

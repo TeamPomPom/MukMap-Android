@@ -13,7 +13,7 @@ fun TagText(
     tags: List<String>
 ) {
     Text(
-        text = tags.joinToString(
+        text = tags.filter { it.isNotEmpty() }.joinToString(
             separator = " "
         ) { "#$it" },
         style = contentFont(fontSize = 14.sp),

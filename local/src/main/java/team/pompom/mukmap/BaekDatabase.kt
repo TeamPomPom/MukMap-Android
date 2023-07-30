@@ -2,6 +2,8 @@ package team.pompom.mukmap
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import team.pompom.mukmap.base.converter.StringConverter
 import team.pompom.mukmap.dao.DataVersionDao
 import team.pompom.mukmap.dao.RestaurantDao
 import team.pompom.mukmap.entity.dataversion.LocalDataVersionEntity
@@ -13,6 +15,7 @@ import team.pompom.mukmap.entity.restaurant.LocalRestaurantsEntity
         LocalDataVersionEntity::class
     ], version = 1
 )
+@TypeConverters(StringConverter::class)
 abstract class BaekDatabase : RoomDatabase() {
     companion object {
         const val DATABASE_NAME = "baek_db"

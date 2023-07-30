@@ -14,9 +14,15 @@ object RestaurantDataMapper {
                     lat = it.lat,
                     lng = it.lng,
                     fullAddress = it.fullAddress,
+                    mainCategory = it.mainCategory,
+                    subCategory = it.subCategory,
                     youtubeThumbnail = it.youtubeVideo?.youtubeThumbnail,
                     youtubeUrl = it.youtubeVideo?.youtubeUrl,
                     naverPlaceUrl = it.youtubeVideo?.naverPlaceUrl,
+                    episodeNum = it.youtubeVideo?.episodeNum,
+                    province = it.province,
+                    district = it.district,
+                    oldDistrict = it.oldDistrict,
                 )
             } ?: listOf()
         )
@@ -33,6 +39,12 @@ object RestaurantDataMapper {
                 youtubeThumbnail = it.youtubeVideo?.youtubeThumbnail,
                 youtubeUrl = it.youtubeVideo?.youtubeUrl,
                 naverPlaceUrl = it.youtubeVideo?.naverPlaceUrl,
+                mainCategory = it.mainCategory,
+                subCategory = it.subCategory,
+                episodeNum = it.youtubeVideo?.episodeNum,
+                province = it.province,
+                district = it.district,
+                oldDistrict = it.oldDistrict,
             )
         } ?: listOf()
     }
@@ -49,6 +61,12 @@ object RestaurantDataMapper {
                     youtubeThumbnail = it.youtubeThumbnail,
                     youtubeUrl = it.youtubeUrl,
                     naverPlaceUrl = it.naverPlaceUrl,
+                    mainCategory = it.mainCategory,
+                    subCategory = it.subCategory,
+                    episodeNum = it.episodeNum,
+                    province = it.province,
+                    district = it.district,
+                    oldDistrict = it.oldDistrict,
                 )
             }
         )
