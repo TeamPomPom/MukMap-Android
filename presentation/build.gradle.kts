@@ -73,7 +73,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
 
     // compose
-    implementation("androidx.activity:activity-compose:1.7.0")
+    implementation("androidx.activity:activity-compose:1.7.2")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
@@ -82,7 +82,7 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     kapt("com.google.dagger:hilt-compiler:2.45")
 
-    implementation("androidx.fragment:fragment-ktx:1.6.0")
+    implementation("androidx.fragment:fragment-ktx:1.6.1")
 
     // Material Design 3
     implementation("androidx.compose.material3:material3")
