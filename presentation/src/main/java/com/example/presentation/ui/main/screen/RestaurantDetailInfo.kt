@@ -1,5 +1,6 @@
 package com.example.presentation.ui.main.screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -47,13 +48,13 @@ fun RestaurantDetail(
                 restaurant = restaurant
             )
             Row {
-                Icon(
+                Image(
                     modifier = Modifier.clickable { restaurantDetailClickAction.naverButtonClicked() },
                     painter = painterResource(id = R.drawable.ic_naver),
                     contentDescription = "naverIcon"
                 )
                 Spacer(modifier = Modifier.width(10.dp))
-                Icon(
+                Image(
                     modifier = Modifier.clickable { restaurantDetailClickAction.exitButtonClicked() },
                     painter = painterResource(id = R.drawable.ic_close),
                     contentDescription = "closeIcon",
