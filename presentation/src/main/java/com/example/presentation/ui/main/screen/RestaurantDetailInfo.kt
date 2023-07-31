@@ -83,22 +83,32 @@ fun RestaurantDetail(
                         .fillMaxHeight(),
                     verticalArrangement = Arrangement.Center
                 ) {
-                    Text(
-                        text = "${restaurant.name}_EP. ${restaurant.episodeNum}_${restaurant.district}",
-                        style = titleFont(fontSize = 12.sp),
-                        color = primaryContent
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        // TODO : 기획 확인 필요
-                        text = "“백종원이 누군디?” 백종원을 모르는 순수한 사장님의 찐한 콩국수집",
-                        style = contentFont(fontSize = 12.sp),
-                        color = primaryContent
-                    )
+                    val (firstTitle, secondTitle) = restaurant.extractTitle()
+                    if (firstTitle != null) {
+                        Text(
+                            text = firstTitle,
+                            style = titleFont(fontSize = 12.sp),
+                            color = primaryContent
+                        )
+                    }
+                    if (secondTitle != null) {
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(
+                            text = secondTitle,
+                            style = contentFont(fontSize = 12.sp),
+                            color = primaryContent
+                        )
+                    }
                 }
             }
         }
     }
+}
+
+private fun RestaurantsEntity.Restaurant.extractTitle(): Pair<String?, String?> {
+    val firstTitle = youtubeTitle?.substringAfter("[")?.substringBefore("]")
+    val secondTitle = youtubeTitle?.substringAfter("]")?.trim()
+    return firstTitle to secondTitle
 }
 
 interface RestaurantDetailClickAction {

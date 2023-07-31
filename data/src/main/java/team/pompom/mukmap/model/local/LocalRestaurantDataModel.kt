@@ -17,4 +17,5 @@ data class LocalRestaurantDataModel(
     val province: String?,
     val district: String?,
     val oldDistrict: String?,
+    val youtubeTitle: String?,
 ) : BaseDataModel

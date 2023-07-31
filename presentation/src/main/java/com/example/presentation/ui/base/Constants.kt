@@ -17,6 +17,7 @@ val dummyRestaurant = RestaurantsEntity.Restaurant(
     province = "전남",
     district = "해남군",
     oldDistrict = "학의리",
+    youtubeTitle = "[백종원의 님아 그 시장을 가오_EP.29_구미] 고기 반 마늘 반! 무조건 밥 한 공기 추가하는 마성의 돼지찌개 먹고 왔습니다!"
 )
 
 val dummyRestaurantLongType = RestaurantsEntity.Restaurant(
@@ -34,4 +35,5 @@ val dummyRestaurantLongType = RestaurantsEntity.Restaurant(
     province = "전남",
     district = "해남군",
     oldDistrict = "학의리",
+    youtubeTitle = "[백종원의 님아 그 시장을 가오_EP.29_구미] 고기 반 마늘 반! 무조건 밥 한 공기 추가하는 마성의 돼지찌개 먹고 왔습니다!"
 )

@@ -20,6 +20,7 @@ object LocalRestaurantMapper : BaseMapper<LocalRestaurantDataModel, LocalRestaur
             province = data.province,
             district = data.district,
             oldDistrict = data.oldDistrict,
+            youtubeTitle = data.youtubeTitle
         )
     }
 
@@ -39,6 +40,7 @@ object LocalRestaurantMapper : BaseMapper<LocalRestaurantDataModel, LocalRestaur
             province = data.province,
             district = data.district,
             oldDistrict = data.oldDistrict,
+            youtubeTitle = data.youtubeTitle
         )
     }
 }

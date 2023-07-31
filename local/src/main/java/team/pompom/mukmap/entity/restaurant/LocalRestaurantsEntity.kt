@@ -21,4 +21,5 @@ data class LocalRestaurantsEntity(
     val province: String?,
     val district: String?,
     val oldDistrict: String?,
+    val youtubeTitle: String?,
 ) : BaseLocalEntity

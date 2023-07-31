@@ -23,6 +23,7 @@ object RestaurantDataMapper {
                     province = it.province,
                     district = it.district,
                     oldDistrict = it.oldDistrict,
+                    youtubeTitle = it.youtubeVideo?.youtubeTitle
                 )
             } ?: listOf()
         )
@@ -45,6 +46,7 @@ object RestaurantDataMapper {
                 province = it.province,
                 district = it.district,
                 oldDistrict = it.oldDistrict,
+                youtubeTitle = it.youtubeVideo?.youtubeTitle
             )
         } ?: listOf()
     }
@@ -67,6 +69,7 @@ object RestaurantDataMapper {
                     province = it.province,
                     district = it.district,
                     oldDistrict = it.oldDistrict,
+                    youtubeTitle = it.youtubeTitle
                 )
             }
         )
