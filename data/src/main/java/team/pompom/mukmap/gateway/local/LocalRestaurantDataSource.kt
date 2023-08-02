@@ -6,4 +6,5 @@ interface LocalRestaurantDataSource {
     suspend fun getAllRestaurants(): List<LocalRestaurantDataModel>
     suspend fun deleteAllRestaurants()
     suspend fun insertRestaurants(restaurants: List<LocalRestaurantDataModel>)
+    suspend fun searchRestaurants(keyword: String): List<LocalRestaurantDataModel>
 }

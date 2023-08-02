@@ -17,4 +17,7 @@ interface RestaurantDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRestaurants(restaurants: List<LocalRestaurantsEntity>)
+
+    @Query("SELECT * FROM ${BaekDatabase.TABLE_RESTAURANT} WHERE name LIKE '%' || :keyword || '%'")
+    suspend fun searchRestaurants(keyword: String): List<LocalRestaurantsEntity>
 }

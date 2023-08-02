@@ -9,4 +9,5 @@ import team.pompom.mukmap.model.restaurants.RestaurantsEntity
  */
 interface RestaurantRepository {
     fun getRestaurants(refreshRestaurant: Boolean, appName: String) : Flow<DomainResultModel<RestaurantsEntity>>
+    fun searchRestaurants(keyword: String) : Flow<DomainResultModel<RestaurantsEntity>>
 }

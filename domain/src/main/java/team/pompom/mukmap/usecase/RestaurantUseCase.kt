@@ -23,4 +23,6 @@ class RestaurantUseCase @Inject constructor(
     fun cachingRestaurants(restaurants: List<RestaurantsEntity.Restaurant>) {
         _cachedRestaurant.value = restaurants
     }
+
+    fun searchRestaurants(keyword: String) = restaurantRepository.searchRestaurants(keyword)
 }

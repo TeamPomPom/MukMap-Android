@@ -30,4 +30,11 @@ class RestaurantDataSourceImpl @Inject constructor(
                     .map { LocalRestaurantMapper.toLocalEntity(it) }
             )
     }
+
+    override suspend fun searchRestaurants(keyword: String): List<LocalRestaurantDataModel> {
+        Log.d("Ram Test", "searchRestaurants")
+        return restaurantDao
+            .searchRestaurants(keyword)
+            .map { LocalRestaurantMapper.toDataModel(it) }
+    }
 }

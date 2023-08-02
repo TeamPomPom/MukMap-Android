@@ -33,4 +33,10 @@ class RestaurantRepositoryImpl @Inject constructor(
                 }
             }
         }
+
+    override fun searchRestaurants(keyword: String): Flow<DomainResultModel<RestaurantsEntity>> = domainResultFlow {
+        localRestaurantDataSource
+            .searchRestaurants(keyword)
+            .run { RestaurantDataMapper.fromLocalToEntity(this) }
+    }
 }

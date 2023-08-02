@@ -26,6 +26,12 @@ fun AppNavigation() {
         ) { navBackStackEntry ->
             MainScreenDestination(navController = navController)
         }
+
+        composable(
+            route = Navigation.Routes.SEARCH,
+        ) {
+            SearchScreenDestination(navController = navController)
+        }
     }
 }
 
