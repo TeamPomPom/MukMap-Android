@@ -1,6 +1,7 @@
 package team.pompom.mukmap.model.restaurants
 
 import team.pompom.mukmap.model.base.BaseEntity
+import java.io.Serializable
 
 data class RestaurantsEntity(
     val restaurants: List<Restaurant> = arrayListOf()
@@ -8,8 +9,8 @@ data class RestaurantsEntity(
     data class Restaurant(
         val id: Int?,
         val name: String?,
-        val lat: String?,
-        val lng: String?,
+        val lat: Double?,
+        val lng: Double?,
         val fullAddress: String?,
         val youtubeTitle: String?,
         val youtubeThumbnail: String?,
@@ -21,5 +22,5 @@ data class RestaurantsEntity(
         val province: String?,
         val district: String?,
         val oldDistrict: String?,
-    )
+    ): Serializable
 }

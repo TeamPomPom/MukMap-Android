@@ -1,24 +1,19 @@
 package com.example.presentation.ui.splash.screen
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.example.presentation.R
 import com.example.presentation.theme.MukMapTheme
-import com.example.presentation.ui.base.ImageWithTextSlot
+import com.example.presentation.ui.base.constants.dummyRestaurant
 import com.example.presentation.ui.splash.SplashContract
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.onEach
 
 @Composable
@@ -38,6 +33,12 @@ fun SplashScreen(
         }.collect()
     }
 
+    LaunchedEffect(key1 = state.restaurants) {
+        if (state.restaurants.isNotEmpty()) {
+            onEventSent(SplashContract.Event.SuccessToGetRestaurant)
+        }
+    }
+
     when {
         state.networkLoading -> {
             Box(
@@ -48,8 +49,15 @@ fun SplashScreen(
                 SplashLoading()
             }
         }
-        state.networkError -> SplashNetworkError()
-        state.restaurants.isNotEmpty() -> onEventSent(SplashContract.Event.SuccessToGetRestaurant)
+        state.networkError -> {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize(),
+                contentAlignment = Alignment.Center
+            ) {
+                SplashNetworkError()
+            }
+        }
     }
 }
 
@@ -58,4 +66,38 @@ fun SplashScreen(
 fun SplashNetworkError() {
     // TODO : ErrorPage View 작업
     Text(text = "에러 있어용")
+}
+
+@Composable
+@Preview(showBackground = true)
+fun SplashScreenPreview() {
+    MukMapTheme {
+        SplashScreen(
+            state = SplashContract.State(
+                restaurants = listOf(dummyRestaurant, dummyRestaurant, dummyRestaurant),
+                networkLoading = true,
+                networkError = false,
+            ),
+            effectFlow = flowOf(),
+            onEventSent = {},
+            onNavigationRequested = {}
+        )
+    }
+}
+
+@Composable
+@Preview(showBackground = true)
+fun SplashScreenPreviewNetworkError() {
+    MukMapTheme {
+        SplashScreen(
+            state = SplashContract.State(
+                restaurants = listOf(dummyRestaurant, dummyRestaurant, dummyRestaurant),
+                networkLoading = false,
+                networkError = true,
+            ),
+            effectFlow = flowOf(),
+            onEventSent = {},
+            onNavigationRequested = {}
+        )
+    }
 }

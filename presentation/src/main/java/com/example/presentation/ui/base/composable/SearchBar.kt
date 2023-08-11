@@ -1,4 +1,4 @@
-package com.example.presentation.ui.base
+package com.example.presentation.ui.base.composable
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,12 +34,18 @@ import com.example.presentation.theme.searchAreaBorder
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBar(
+    modifier: Modifier = Modifier,
     showBorder: Boolean,
-    value: String,
+    enabled: Boolean = true,
+    readOnly: Boolean,
+    hint: String,
     onValueChanged: (String) -> Unit,
 ) {
+
+    var value by remember { mutableStateOf("") }
+
     Box(
-        modifier = Modifier
+        modifier = modifier
             .conditional(!showBorder) {
                 drawColoredShadow(
                     color = Color.Black,
@@ -50,15 +57,22 @@ fun SearchBar(
                 )
             }
     ) {
+        // Compose 기본 inset 없애고, padding 값 조절
         OutlinedTextField(
             modifier = Modifier
                 .height(64.dp)
                 .clip(RoundedCornerShape(20.dp))
                 .fillMaxWidth()
                 .background(defaultBackground),
+            readOnly = readOnly,
             value = value,
-            onValueChange = onValueChanged,
+            onValueChange = {
+                value = it
+                onValueChanged.invoke(it)
+            },
             singleLine = true,
+            enabled = enabled,
+            placeholder = { Text(text = hint) },
             shape = RoundedCornerShape(20.dp),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = if (!showBorder) Color.White else searchAreaBorder,
@@ -84,11 +98,19 @@ fun SearchBarPreview() {
         Column(
             modifier = Modifier.padding(10.dp)
         ) {
-            SearchBar(true, text) {
+            SearchBar(
+                showBorder = true,
+                readOnly = false,
+                hint = text
+            ) {
                 text = it
             }
             Spacer(modifier = Modifier.height(30.dp))
-            SearchBar(false, text) {
+            SearchBar(
+                showBorder = false,
+                readOnly = false,
+                hint = text
+            ) {
                 text = it
             }
             Spacer(modifier = Modifier.height(30.dp))

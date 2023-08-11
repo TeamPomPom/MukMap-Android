@@ -97,4 +97,8 @@ dependencies {
 
     implementation("androidx.navigation:navigation-compose:2.6.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+
+    // NaverMap
+    implementation("com.naver.maps:map-sdk:3.17.0")
+    implementation("io.github.fornewid:naver-map-compose:1.3.3")
 }

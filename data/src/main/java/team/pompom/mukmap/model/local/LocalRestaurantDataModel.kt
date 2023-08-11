@@ -5,8 +5,8 @@ import team.pompom.mukmap.base.BaseDataModel
 data class LocalRestaurantDataModel(
     val id: Int?,
     val name: String?,
-    val lat: String?,
-    val lng: String?,
+    val lat: Double?,
+    val lng: Double?,
     val fullAddress: String?,
     val youtubeThumbnail: String?,
     val youtubeUrl: String?,

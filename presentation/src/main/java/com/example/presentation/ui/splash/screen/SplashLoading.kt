@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.presentation.R
 import com.example.presentation.theme.MukMapTheme
-import com.example.presentation.ui.base.ImageWithTextSlot
+import com.example.presentation.ui.base.composable.ImageWithTextSlot
 
 @Composable
 fun SplashLoading() {

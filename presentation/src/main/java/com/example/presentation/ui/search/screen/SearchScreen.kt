@@ -1,6 +1,7 @@
 package com.example.presentation.ui.search.screen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,8 +20,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.presentation.R
 import com.example.presentation.theme.MukMapTheme
-import com.example.presentation.ui.base.SearchBar
-import com.example.presentation.ui.base.dummyRestaurant
+import com.example.presentation.theme.defaultBackground
+import com.example.presentation.ui.base.composable.SearchBar
+import com.example.presentation.ui.base.composable.RestaurantInfoList
+import com.example.presentation.ui.base.constants.dummyRestaurant
 import com.example.presentation.ui.search.SearchContract
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
@@ -48,6 +51,7 @@ fun SearchScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
+            .background(defaultBackground)
             .padding(horizontal = 24.dp)
     ) {
         TopAppBar(
@@ -62,7 +66,7 @@ fun SearchScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_naver),
+                        painter = painterResource(id = R.drawable.ic_back),
                         contentDescription = "back Icon"
                     )
                 }
@@ -73,11 +77,12 @@ fun SearchScreen(
         ) {
             SearchBar(
                 showBorder = true,
-                value = state.searchText,
-                onValueChanged = { searchText -> onEventSent(SearchContract.Event.EnterSearchText(searchText = searchText)) }
+                readOnly = false,
+                onValueChanged = { searchText -> onEventSent(SearchContract.Event.EnterSearchText(searchText = searchText)) },
+                hint = "음식 메뉴, 지역을 검색 해 보세요"
             )
         }
-        SearchResults(restaurants = state.searchResult) {
+        RestaurantInfoList(restaurants = state.searchResult) {
             onEventSent(SearchContract.Event.ClickRestaurant(it))
         }
     }
@@ -89,7 +94,6 @@ fun SearchScreenPreview() {
     MukMapTheme {
         SearchScreen(
             state = SearchContract.State(
-                searchText = "입력된 검색어",
                 searchResult = listOf(dummyRestaurant, dummyRestaurant, dummyRestaurant),
                 hasError = false
             ),

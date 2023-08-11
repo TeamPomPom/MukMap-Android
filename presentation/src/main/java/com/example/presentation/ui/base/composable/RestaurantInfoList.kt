@@ -1,4 +1,4 @@
-package com.example.presentation.ui.search.screen
+package com.example.presentation.ui.base.composable
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.padding
@@ -11,16 +11,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.presentation.theme.MukMapTheme
 import com.example.presentation.theme.defaultDivider
-import com.example.presentation.ui.base.dummyRestaurant
+import com.example.presentation.ui.base.constants.dummyRestaurant
 import com.example.presentation.ui.main.screen.RestaurantInfo
 import team.pompom.mukmap.model.restaurants.RestaurantsEntity
 
 @Composable
-fun SearchResults(
+fun RestaurantInfoList(
+    modifier: Modifier = Modifier,
+    userScrollEnabled: Boolean = true,
     restaurants: List<RestaurantsEntity.Restaurant>,
     onClickRestaurant: (restaurant: RestaurantsEntity.Restaurant) -> Unit
 ) {
-    LazyColumn {
+    LazyColumn(
+        modifier = modifier,
+        userScrollEnabled = userScrollEnabled
+    ) {
         itemsIndexed(restaurants) { index, item ->
             RestaurantInfo(
                 modifier = Modifier
@@ -37,7 +42,7 @@ fun SearchResults(
 @Preview(showBackground = true)
 fun SearchResultsPreview() {
     MukMapTheme {
-        SearchResults(
+        RestaurantInfoList(
             restaurants = listOf(dummyRestaurant, dummyRestaurant, dummyRestaurant)
         ) {
 

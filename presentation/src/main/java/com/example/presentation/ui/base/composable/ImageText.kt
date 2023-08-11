@@ -1,4 +1,4 @@
-package com.example.presentation.ui.base
+package com.example.presentation.ui.base.composable
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,11 +10,13 @@ import androidx.compose.ui.Modifier
 
 @Composable
 internal fun ImageWithTextSlot(
+    modifier: Modifier = Modifier,
     imagePadding: PaddingValues = PaddingValues(),
     imageArea: @Composable () -> Unit,
     textArea: @Composable () -> Unit
 ) {
     Column(
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(modifier = Modifier.padding(imagePadding)) {

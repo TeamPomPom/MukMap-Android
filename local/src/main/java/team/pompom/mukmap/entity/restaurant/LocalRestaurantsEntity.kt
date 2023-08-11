@@ -9,8 +9,8 @@ import team.pompom.mukmap.base.BaseLocalEntity
 data class LocalRestaurantsEntity(
     @PrimaryKey val restaurantId: Int?,
     val name: String?,
-    val lat: String?,
-    val lng: String?,
+    val lat: Double?,
+    val lng: Double?,
     val fullAddress: String?,
     val youtubeThumbnail: String?,
     val youtubeUrl: String?,

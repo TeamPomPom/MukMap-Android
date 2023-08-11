@@ -13,7 +13,6 @@ interface SearchContract {
     }
 
     data class State(
-        val searchText: String,
         val searchResult: List<RestaurantsEntity.Restaurant>,
         val hasError: Boolean,
     ) : ViewState

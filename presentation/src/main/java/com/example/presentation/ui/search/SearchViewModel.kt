@@ -8,10 +8,8 @@ import javax.inject.Inject
 @HiltViewModel
 class SearchViewModel @Inject constructor(
     private val restaurantUseCase: RestaurantUseCase
-) :
-    BaseViewModel<SearchContract.Event, SearchContract.State, SearchContract.Effect>() {
+) : BaseViewModel<SearchContract.Event, SearchContract.State, SearchContract.Effect>() {
     override fun setInitialState(): SearchContract.State = SearchContract.State(
-        searchText = "",
         searchResult = listOf(),
         hasError = false
     )
@@ -28,7 +26,11 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun searchRestaurant(keyword: String) {
+    init {
+        searchRestaurant("")
+    }
+
+    private fun searchRestaurant(keyword: String) {
         restaurantUseCase
             .searchRestaurants(keyword = keyword)
             .viewModelsIn(
@@ -36,7 +38,6 @@ class SearchViewModel @Inject constructor(
                     setState {
                         copy(
                             searchResult = it.restaurants,
-                            searchText = keyword,
                             hasError = false
                         )
                     }

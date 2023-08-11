@@ -1,4 +1,4 @@
-package com.example.presentation.ui.base
+package com.example.presentation.ui.base.composable
 
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.gestures.detectVerticalDragGestures
@@ -24,7 +24,7 @@ import androidx.compose.ui.unit.dp
 /**
  * ref : https://stackoverflow.com/a/74042822
  */
-enum class ExpandedType {
+enum class ExpandedState {
     HALF, FULL, COLLAPSED
 }
 
@@ -34,6 +34,7 @@ fun BottomSheet(
     expandedHeight: Int,
     halfExpandedHeight: Int,
     collapsedHeight: Int,
+    stateChanged: (ExpandedState) -> Unit = {},
     sheetShape: Shape = RoundedCornerShape(
         bottomStart = 0.dp,
         bottomEnd = 0.dp,
@@ -43,13 +44,13 @@ fun BottomSheet(
     entireContent: @Composable () -> Unit,
     bottomSheetContent: @Composable () -> Unit,
 ) {
-    var expandedType by remember { mutableStateOf(ExpandedType.COLLAPSED) }
+    var expandedState by remember { mutableStateOf(ExpandedState.COLLAPSED) }
 
     val height by animateIntAsState(
-        when (expandedType) {
-            ExpandedType.HALF -> halfExpandedHeight
-            ExpandedType.FULL -> expandedHeight
-            ExpandedType.COLLAPSED -> collapsedHeight
+        when (expandedState) {
+            ExpandedState.HALF -> halfExpandedHeight
+            ExpandedState.FULL -> expandedHeight
+            ExpandedState.COLLAPSED -> collapsedHeight
         }, label = ""
     )
 
@@ -72,13 +73,23 @@ fun BottomSheet(
                             onVerticalDrag = { change, dragAmount ->
                                 change.consume()
                                 if (!isUpdated) {
-                                    expandedType = when {
-                                        dragAmount < 0 && expandedType == ExpandedType.COLLAPSED -> { ExpandedType.HALF }
-                                        dragAmount < 0 && expandedType == ExpandedType.HALF -> { ExpandedType.FULL }
-                                        dragAmount > 0 && expandedType == ExpandedType.FULL -> { ExpandedType.HALF }
-                                        dragAmount > 0 && expandedType == ExpandedType.HALF -> { ExpandedType.COLLAPSED }
-                                        else -> { ExpandedType.FULL }
-                                    }
+                                    expandedState = when {
+                                        dragAmount < 0 && expandedState == ExpandedState.COLLAPSED -> {
+                                            ExpandedState.HALF
+                                        }
+                                        dragAmount < 0 && expandedState == ExpandedState.HALF -> {
+                                            ExpandedState.FULL
+                                        }
+                                        dragAmount > 0 && expandedState == ExpandedState.FULL -> {
+                                            ExpandedState.HALF
+                                        }
+                                        dragAmount > 0 && expandedState == ExpandedState.HALF -> {
+                                            ExpandedState.COLLAPSED
+                                        }
+                                        else -> {
+                                            ExpandedState.FULL
+                                        }
+                                    }.also(stateChanged)
                                     isUpdated = true
                                 }
                             },

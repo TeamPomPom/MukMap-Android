@@ -1,12 +1,12 @@
-package com.example.presentation.ui.base
+package com.example.presentation.ui.base.constants
 
 import team.pompom.mukmap.model.restaurants.RestaurantsEntity
 
 val dummyRestaurant = RestaurantsEntity.Restaurant(
     id = 1,
     name = "남천식당",
-    lat = "36.4138308",
-    lng = "128.1629515",
+    lat = 36.4138308,
+    lng = 128.1629515,
     fullAddress = "경북 상주시 왕산로 186-1",
     youtubeThumbnail = "",
     youtubeUrl = "",
@@ -17,14 +17,14 @@ val dummyRestaurant = RestaurantsEntity.Restaurant(
     province = "전남",
     district = "해남군",
     oldDistrict = "학의리",
-    youtubeTitle = "[백종원의 님아 그 시장을 가오_EP.29_구미] 고기 반 마늘 반! 무조건 밥 한 공기 추가하는 마성의 돼지찌개 먹고 왔습니다!"
+    youtubeTitle = "[백종원의 님아 그 시장을 가오_EP.29_구미] 고기 반 마늘 반! 무조건 밥 한 공기 추가하는 마성의 돼지찌개 먹고 왔습니다!추가하는 마성의 돼지찌개 먹고 왔습니다!추가하는 마성의 돼지찌개 먹고 왔습니다!추가하는 마성의 돼지찌개 먹고 왔습니다!추가하는 마성의 돼지찌개 먹고 왔습니다!추가하는 마성의 돼지찌개 먹고 왔습니다!추가하는 마성의 돼지찌개 먹고 왔습니다!추가하는 마성의 돼지찌개 먹고 왔습니다!추가하는 마성의 돼지찌개 먹고 왔습니다!추가하는 마성의 돼지찌개 먹고 왔습니다!"
 )
 
 val dummyRestaurantLongType = RestaurantsEntity.Restaurant(
     id = 1,
     name = "남천식당남천식당남천식당남천식당남천식당남천식당남천식당남천식당남천식당남천식당",
-    lat = "36.4138308",
-    lng = "128.1629515",
+    lat = 36.4138308,
+    lng = 128.1629515,
     fullAddress = "경북 상주시 왕산로 186-1경북 상주시 왕산로 186-1경북 상주시 왕산로 186-1경북 상주시 왕산로 186-1경북 상주시 왕산로 186-1경북 상주시 왕산로 186-1경북 상주시 왕산로 186-1경북 상주시 왕산로 186-1",
     youtubeThumbnail = "",
     youtubeUrl = "",

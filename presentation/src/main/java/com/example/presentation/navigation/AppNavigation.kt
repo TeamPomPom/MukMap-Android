@@ -1,11 +1,13 @@
 package com.example.presentation.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import team.pompom.mukmap.model.restaurants.RestaurantsEntity
 
 @Composable
 fun AppNavigation() {
@@ -24,13 +26,26 @@ fun AppNavigation() {
         composable(
             route = Navigation.Routes.MAIN,
         ) { navBackStackEntry ->
-            MainScreenDestination(navController = navController)
+            val restaurant = navBackStackEntry
+                .savedStateHandle
+                .getStateFlow<RestaurantsEntity.Restaurant?>(Navigation.RESTAURANT, null)
+                .collectAsState()
+
+            MainScreenDestination(
+                searchedRestaurant = restaurant.value,
+                navController = navController
+            )
         }
 
         composable(
             route = Navigation.Routes.SEARCH,
         ) {
-            SearchScreenDestination(navController = navController)
+            SearchScreenDestination(navController = navController) { restaurant ->
+                navController.previousBackStackEntry
+                    ?.savedStateHandle
+                    ?.set(Navigation.RESTAURANT, restaurant)
+                navController.popBackStack()
+            }
         }
     }
 }

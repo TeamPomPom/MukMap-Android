@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -30,7 +29,7 @@ import com.example.presentation.theme.contentFont
 import com.example.presentation.theme.primaryContent
 import com.example.presentation.theme.titleFont
 import com.example.presentation.theme.youtubeBackgroundInfo
-import com.example.presentation.ui.base.dummyRestaurant
+import com.example.presentation.ui.base.constants.dummyRestaurant
 import team.pompom.mukmap.model.restaurants.RestaurantsEntity
 
 @Composable

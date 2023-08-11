@@ -18,8 +18,8 @@ import com.example.presentation.theme.contentFont
 import com.example.presentation.theme.primaryContent
 import com.example.presentation.theme.titleContent
 import com.example.presentation.theme.titleFont
-import com.example.presentation.ui.base.TagText
-import com.example.presentation.ui.base.dummyRestaurant
+import com.example.presentation.ui.base.composable.TagText
+import com.example.presentation.ui.base.constants.dummyRestaurant
 import team.pompom.mukmap.model.restaurants.RestaurantsEntity
 
 @Composable

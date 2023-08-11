@@ -14,8 +14,8 @@ data class RemoteRestaurantDataModel(
         data class Restaurant(
             @SerializedName("id") var id: Int? = null,
             @SerializedName("name") var name: String? = null,
-            @SerializedName("lat") var lat: String? = null,
-            @SerializedName("lng") var lng: String? = null,
+            @SerializedName("lat") var lat: Double? = null,
+            @SerializedName("lng") var lng: Double? = null,
             @SerializedName("full_address") var fullAddress: String? = null,
             @SerializedName("youtube_video") var youtubeVideo: YoutubeVideo? = null,
             @SerializedName("main_category") var mainCategory: String? = null,
