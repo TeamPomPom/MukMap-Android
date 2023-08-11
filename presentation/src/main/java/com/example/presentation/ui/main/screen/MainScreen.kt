@@ -1,6 +1,7 @@
 package com.example.presentation.ui.main.screen
 
 import android.graphics.PointF
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -79,6 +80,7 @@ fun MainScreen(
         halfExpandedHeight = screenHeight / 2,
         collapsedHeight = 100,
         expandedState = expandedState,
+        isHeightControlledByHeight = isDetailRestaurantView.not(),
         stateChanged = { state ->
             expandedState = state
             userScrollEnabled = when (state) {
@@ -117,6 +119,7 @@ fun MainScreen(
         bottomSheetContent = {
             if (isDetailRestaurantView) {
                 state.searchedRestaurant?.let { restaurant ->
+                    expandedState = ExpandedState.FULL
                     RestaurantDetail(
                         restaurant = restaurant,
                         restaurantDetailClickAction = object : RestaurantDetailClickAction {

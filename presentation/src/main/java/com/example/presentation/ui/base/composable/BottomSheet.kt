@@ -12,11 +12,13 @@ import androidx.compose.material.BottomSheetValue
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.dp
+import com.example.presentation.base.ui.conditional
 
 /**
  * ref : https://stackoverflow.com/a/74042822
@@ -32,6 +34,7 @@ fun BottomSheet(
     halfExpandedHeight: Int,
     collapsedHeight: Int,
     expandedState: ExpandedState = ExpandedState.COLLAPSED,
+    isHeightControlledByHeight: Boolean,
     stateChanged: (ExpandedState) -> Unit = {},
     sheetShape: Shape = RoundedCornerShape(
         bottomStart = 0.dp,
@@ -54,6 +57,18 @@ fun BottomSheet(
         bottomSheetState = BottomSheetState(BottomSheetValue.Collapsed)
     )
 
+    LaunchedEffect(expandedState) {
+        when (expandedState) {
+            ExpandedState.FULL -> if (isHeightControlledByHeight.not()) {
+                bottomSheetScaffoldState.bottomSheetState.expand()
+            }
+            ExpandedState.COLLAPSED -> if (isHeightControlledByHeight.not()) {
+                bottomSheetScaffoldState.bottomSheetState.collapse()
+            }
+            ExpandedState.HALF -> { }
+        }
+    }
+
     BottomSheetScaffold(
         scaffoldState = bottomSheetScaffoldState,
         sheetElevation = 8.dp,
@@ -63,44 +78,32 @@ fun BottomSheet(
             Box(
                 Modifier
                     .fillMaxWidth()
-                    .height(height.dp)
-                    .pointerInput(Unit) {
-                        detectVerticalDragGestures(
-                            onVerticalDrag = { change, dragAmount ->
-                                change.consume()
-                                if (!isUpdated) {
-                                    when {
-                                        dragAmount < 0 && expandedState == ExpandedState.COLLAPSED -> {
-                                            ExpandedState.HALF
-                                        }
-
-                                        dragAmount < 0 && expandedState == ExpandedState.HALF -> {
-                                            ExpandedState.FULL
-                                        }
-
-                                        dragAmount > 0 && expandedState == ExpandedState.FULL -> {
-                                            ExpandedState.HALF
-                                        }
-
-                                        dragAmount > 0 && expandedState == ExpandedState.HALF -> {
-                                            ExpandedState.COLLAPSED
-                                        }
-
-                                        else -> {
-                                            ExpandedState.FULL
-                                        }
-                                    }.also(stateChanged)
-                                    isUpdated = true
-                                }
-                            },
-                            onDragEnd = { isUpdated = false }
-                        )
+                    .conditional(isHeightControlledByHeight) {
+                        this.height(height.dp)
+                            .pointerInput(expandedState) {
+                            detectVerticalDragGestures(
+                                onVerticalDrag = { change, dragAmount ->
+                                    change.consume()
+                                    if (!isUpdated) {
+                                        when {
+                                            dragAmount < 0 && expandedState == ExpandedState.COLLAPSED -> { ExpandedState.HALF }
+                                            dragAmount < 0 && expandedState == ExpandedState.HALF -> { ExpandedState.FULL }
+                                            dragAmount > 0 && expandedState == ExpandedState.FULL -> { ExpandedState.HALF }
+                                            dragAmount > 0 && expandedState == ExpandedState.HALF -> { ExpandedState.COLLAPSED }
+                                            else -> { ExpandedState.FULL }
+                                        }.also(stateChanged)
+                                        isUpdated = true
+                                    }
+                                },
+                                onDragEnd = { isUpdated = false }
+                            )
+                        }
                     }
             ) {
                 bottomSheetContent()
             }
         },
-        sheetPeekHeight = height.dp
+        sheetPeekHeight = if (isHeightControlledByHeight) height.dp else 0.dp
     ) {
         entireContent()
     }
