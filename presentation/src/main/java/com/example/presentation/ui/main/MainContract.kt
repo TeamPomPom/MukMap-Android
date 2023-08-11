@@ -18,7 +18,6 @@ object MainContract {
     ) : ViewState
 
     sealed class Effect : ViewSideEffect {
-        class MoveMapToRestaurant(val restaurant: RestaurantsEntity.Restaurant) : Effect()
         sealed class Navigation : Effect() {
             object MoveToSearchScreen : Navigation()
         }

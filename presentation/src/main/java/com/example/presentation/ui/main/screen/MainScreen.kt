@@ -1,7 +1,6 @@
 package com.example.presentation.ui.main.screen
 
 import android.graphics.PointF
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -60,10 +59,6 @@ fun MainScreen(
                 is MainContract.Effect.Navigation -> {
                     onNavigationFlow(effect)
                 }
-
-                is MainContract.Effect.MoveMapToRestaurant -> {
-                    effect.restaurant
-                }
             }
         }.collect()
     }
@@ -94,7 +89,10 @@ fun MainScreen(
             ) {
                 MapScreen(
                     restaurants = state.entireRestaurant,
-                    selectedRestaurant = state.searchedRestaurant
+                    selectedRestaurant = state.searchedRestaurant,
+                    onMarkerClicked = { restaurant ->
+                        onEventSent.invoke(MainContract.Event.ClickRestaurant(restaurant = restaurant))
+                    }
                 ) { pointF, latLng ->
                     expandedState = ExpandedState.COLLAPSED
                     isDetailRestaurantView = false
@@ -125,6 +123,7 @@ fun MainScreen(
                         restaurantDetailClickAction = object : RestaurantDetailClickAction {
                             override fun exitButtonClicked() {
                                 isDetailRestaurantView = false
+                                expandedState = ExpandedState.COLLAPSED
                             }
 
                             override fun naverButtonClicked() {
@@ -143,8 +142,8 @@ fun MainScreen(
                         .padding(start = 24.dp, end = 24.dp, top = 24.dp),
                     userScrollEnabled = userScrollEnabled,
                     restaurants = state.entireRestaurant
-                ) {
-                    onEventSent.invoke(MainContract.Event.ClickRestaurant(it))
+                ) { restaurant ->
+                    onEventSent.invoke(MainContract.Event.ClickRestaurant(restaurant))
                 }
             }
         })
@@ -155,6 +154,7 @@ fun MainScreen(
 fun MapScreen(
     restaurants: List<RestaurantsEntity.Restaurant>,
     selectedRestaurant: RestaurantsEntity.Restaurant?,
+    onMarkerClicked: (RestaurantsEntity.Restaurant) -> Unit,
     onMapClicked: (PointF, LatLng) -> Unit,
 ) {
     val context = LocalContext.current
@@ -177,20 +177,15 @@ fun MapScreen(
         cameraPositionState = cameraPositionState,
         onMapClick = onMapClicked
     ) {
-        restaurants.forEach { restaurants ->
+        restaurants.forEach { restaurant ->
             Marker(
                 state = rememberMarkerState(
-                    position = LatLng(restaurants.lat ?: 0.0, restaurants.lng ?: 0.0)
+                    position = LatLng(restaurant.lat ?: 0.0, restaurant.lng ?: 0.0)
                 ),
                 icon = OverlayImage.fromResource(R.drawable.ic_mark),
-                captionText = restaurants.name,
+                captionText = restaurant.name,
                 onClick = { marker ->
-                    Toast.makeText(context, restaurants.name, Toast.LENGTH_LONG).show()
-                    cameraPositionState.move(
-                        CameraUpdate.toCameraPosition(
-                            CameraPosition(marker.position, 11.0)
-                        )
-                    )
+                    onMarkerClicked.invoke(restaurant)
                     true
                 }
             )
