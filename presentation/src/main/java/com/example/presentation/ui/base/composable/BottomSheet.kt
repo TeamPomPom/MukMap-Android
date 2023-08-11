@@ -13,9 +13,6 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.pointerInput
@@ -34,6 +31,7 @@ fun BottomSheet(
     expandedHeight: Int,
     halfExpandedHeight: Int,
     collapsedHeight: Int,
+    expandedState: ExpandedState = ExpandedState.COLLAPSED,
     stateChanged: (ExpandedState) -> Unit = {},
     sheetShape: Shape = RoundedCornerShape(
         bottomStart = 0.dp,
@@ -44,8 +42,6 @@ fun BottomSheet(
     entireContent: @Composable () -> Unit,
     bottomSheetContent: @Composable () -> Unit,
 ) {
-    var expandedState by remember { mutableStateOf(ExpandedState.COLLAPSED) }
-
     val height by animateIntAsState(
         when (expandedState) {
             ExpandedState.HALF -> halfExpandedHeight
@@ -73,19 +69,23 @@ fun BottomSheet(
                             onVerticalDrag = { change, dragAmount ->
                                 change.consume()
                                 if (!isUpdated) {
-                                    expandedState = when {
+                                    when {
                                         dragAmount < 0 && expandedState == ExpandedState.COLLAPSED -> {
                                             ExpandedState.HALF
                                         }
+
                                         dragAmount < 0 && expandedState == ExpandedState.HALF -> {
                                             ExpandedState.FULL
                                         }
+
                                         dragAmount > 0 && expandedState == ExpandedState.FULL -> {
                                             ExpandedState.HALF
                                         }
+
                                         dragAmount > 0 && expandedState == ExpandedState.HALF -> {
                                             ExpandedState.COLLAPSED
                                         }
+
                                         else -> {
                                             ExpandedState.FULL
                                         }

@@ -1,6 +1,6 @@
 package com.example.presentation.ui.main.screen
 
-import android.graphics.Bitmap
+import android.graphics.PointF
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -9,7 +9,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -25,12 +24,14 @@ import com.example.presentation.ui.base.composable.ExpandedState
 import com.example.presentation.ui.base.composable.RestaurantInfoList
 import com.example.presentation.ui.base.composable.SearchBar
 import com.example.presentation.ui.base.constants.dummyRestaurant
-import com.example.presentation.ui.base.util.BitmapFromComposable
 import com.example.presentation.ui.main.MainContract
 import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.CameraPosition
+import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.compose.ExperimentalNaverMapApi
 import com.naver.maps.map.compose.Marker
 import com.naver.maps.map.compose.NaverMap
+import com.naver.maps.map.compose.rememberCameraPositionState
 import com.naver.maps.map.compose.rememberMarkerState
 import com.naver.maps.map.overlay.OverlayImage
 import kotlinx.coroutines.flow.Flow
@@ -49,6 +50,9 @@ fun MainScreen(
 
     var userScrollEnabled by remember { mutableStateOf(false) }
 
+    var isDetailRestaurantView by remember { mutableStateOf(false) }
+    var expandedState by remember { mutableStateOf(ExpandedState.HALF) }
+
     LaunchedEffect(key1 = true) {
         effectFlow.onEach { effect ->
             when (effect) {
@@ -66,12 +70,18 @@ fun MainScreen(
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp
 
+    LaunchedEffect(state.searchedRestaurant) {
+        isDetailRestaurantView = state.searchedRestaurant != null
+    }
+
     BottomSheet(
         expandedHeight = screenHeight,
         halfExpandedHeight = screenHeight / 2,
         collapsedHeight = 100,
-        stateChanged = { expandedState ->
-            userScrollEnabled = when (expandedState) {
+        expandedState = expandedState,
+        stateChanged = { state ->
+            expandedState = state
+            userScrollEnabled = when (state) {
                 ExpandedState.FULL -> true
                 ExpandedState.COLLAPSED, ExpandedState.HALF -> false
             }
@@ -80,8 +90,13 @@ fun MainScreen(
             Box(
                 modifier = Modifier.fillMaxSize()
             ) {
-                MapScreen(state.entireRestaurant)
-
+                MapScreen(
+                    restaurants = state.entireRestaurant,
+                    selectedRestaurant = state.searchedRestaurant
+                ) { pointF, latLng ->
+                    expandedState = ExpandedState.COLLAPSED
+                    isDetailRestaurantView = false
+                }
 
                 Box(
                     modifier = Modifier
@@ -100,13 +115,34 @@ fun MainScreen(
             }
         },
         bottomSheetContent = {
-            RestaurantInfoList(
-                modifier = Modifier
-                    .padding(start = 24.dp, end = 24.dp, top = 24.dp),
-                userScrollEnabled = userScrollEnabled,
-                restaurants = state.entireRestaurant
-            ) {
-                onEventSent.invoke(MainContract.Event.ClickRestaurant(it))
+            if (isDetailRestaurantView) {
+                state.searchedRestaurant?.let { restaurant ->
+                    RestaurantDetail(
+                        restaurant = restaurant,
+                        restaurantDetailClickAction = object : RestaurantDetailClickAction {
+                            override fun exitButtonClicked() {
+                                isDetailRestaurantView = false
+                            }
+
+                            override fun naverButtonClicked() {
+
+                            }
+
+                            override fun youtubeButtonClicked() {
+
+                            }
+                        }
+                    )
+                }
+            } else {
+                RestaurantInfoList(
+                    modifier = Modifier
+                        .padding(start = 24.dp, end = 24.dp, top = 24.dp),
+                    userScrollEnabled = userScrollEnabled,
+                    restaurants = state.entireRestaurant
+                ) {
+                    onEventSent.invoke(MainContract.Event.ClickRestaurant(it))
+                }
             }
         })
 }
@@ -114,30 +150,44 @@ fun MainScreen(
 @Composable
 @OptIn(ExperimentalNaverMapApi::class)
 fun MapScreen(
-    list: List<RestaurantsEntity.Restaurant>
+    restaurants: List<RestaurantsEntity.Restaurant>,
+    selectedRestaurant: RestaurantsEntity.Restaurant?,
+    onMapClicked: (PointF, LatLng) -> Unit,
 ) {
-    val bitMapList = remember { mutableStateListOf<Pair<Bitmap, RestaurantsEntity.Restaurant>>() }
     val context = LocalContext.current
 
-    list.forEach { restaurant ->
-        BitmapFromComposable(targetComposable = {
-            NaverMarkerIcon(modifier = Modifier, restaurantName = restaurant.name ?: "")
-        }, whenBitmapCreated = { bitmap ->
-            bitMapList.add(bitmap to restaurant)
-        })
+    val cameraPositionState = rememberCameraPositionState()
+
+    if (selectedRestaurant != null) {
+        cameraPositionState.move(
+            CameraUpdate.toCameraPosition(
+                CameraPosition(
+                    LatLng(selectedRestaurant.lat ?: 0.0, selectedRestaurant.lng ?: 0.0),
+                    11.0
+                )
+            )
+        )
     }
 
-    NaverMap(modifier = Modifier.fillMaxSize()) {
-        bitMapList.forEach {
+    NaverMap(
+        modifier = Modifier.fillMaxSize(),
+        cameraPositionState = cameraPositionState,
+        onMapClick = onMapClicked
+    ) {
+        restaurants.forEach { restaurants ->
             Marker(
                 state = rememberMarkerState(
-                    position = LatLng(it.second.lat ?: 0.0, it.second.lng ?: 0.0)
+                    position = LatLng(restaurants.lat ?: 0.0, restaurants.lng ?: 0.0)
                 ),
                 icon = OverlayImage.fromResource(R.drawable.ic_mark),
-                captionText = it.second.name,
+                captionText = restaurants.name,
                 onClick = { marker ->
-                    Toast.makeText(context, it.second.name, Toast.LENGTH_LONG).show()
-                    marker
+                    Toast.makeText(context, restaurants.name, Toast.LENGTH_LONG).show()
+                    cameraPositionState.move(
+                        CameraUpdate.toCameraPosition(
+                            CameraPosition(marker.position, 11.0)
+                        )
+                    )
                     true
                 }
             )
