@@ -1,5 +1,6 @@
 package com.example.presentation.ui.base.composable
 
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.animateIntAsState
 import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.Box
@@ -17,6 +18,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.presentation.base.ui.conditional
 
@@ -30,9 +32,9 @@ enum class ExpandedState {
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun BottomSheet(
-    expandedHeight: Int,
-    halfExpandedHeight: Int,
-    collapsedHeight: Int,
+    expandedHeight: Dp,
+    halfExpandedHeight: Dp,
+    collapsedHeight: Dp,
     expandedState: ExpandedState = ExpandedState.COLLAPSED,
     isHeightControlledByHeight: Boolean,
     stateChanged: (ExpandedState) -> Unit = {},
@@ -43,9 +45,9 @@ fun BottomSheet(
         topEnd = 12.dp
     ),
     entireContent: @Composable () -> Unit,
-    bottomSheetContent: @Composable () -> Unit,
+    bottomSheetContent: @Composable (ExpandedState) -> Unit,
 ) {
-    val height by animateIntAsState(
+    val height by animateDpAsState(
         when (expandedState) {
             ExpandedState.HALF -> halfExpandedHeight
             ExpandedState.FULL -> expandedHeight
@@ -79,7 +81,7 @@ fun BottomSheet(
                 Modifier
                     .fillMaxWidth()
                     .conditional(isHeightControlledByHeight) {
-                        this.height(height.dp)
+                        this.height(height)
                             .pointerInput(expandedState) {
                             detectVerticalDragGestures(
                                 onVerticalDrag = { change, dragAmount ->
@@ -100,10 +102,10 @@ fun BottomSheet(
                         }
                     }
             ) {
-                bottomSheetContent()
+                bottomSheetContent(expandedState)
             }
         },
-        sheetPeekHeight = if (isHeightControlledByHeight) height.dp else 0.dp
+        sheetPeekHeight = if (isHeightControlledByHeight) height else 0.dp
     ) {
         entireContent()
     }

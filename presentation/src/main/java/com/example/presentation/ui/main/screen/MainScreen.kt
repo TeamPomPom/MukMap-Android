@@ -1,11 +1,14 @@
 package com.example.presentation.ui.main.screen
 
 import android.graphics.PointF
-import android.widget.Toast
+import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -13,8 +16,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.boundsInWindow
+import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.presentation.R
@@ -40,6 +47,9 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.onEach
 import team.pompom.mukmap.model.restaurants.RestaurantsEntity
 
+val SearchBarTopMargin = 14.dp
+val SearchBarBottomMargin = 24.dp
+
 @Composable
 fun MainScreen(
     state: MainContract.State,
@@ -49,9 +59,9 @@ fun MainScreen(
 ) {
 
     var userScrollEnabled by remember { mutableStateOf(false) }
-
     var isDetailRestaurantView by remember { mutableStateOf(false) }
     var expandedState by remember { mutableStateOf(ExpandedState.HALF) }
+    var sizeOfSearchBar by remember { mutableStateOf(0.dp) }
 
     LaunchedEffect(key1 = true) {
         effectFlow.onEach { effect ->
@@ -63,6 +73,7 @@ fun MainScreen(
         }.collect()
     }
 
+    val density = LocalDensity.current
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp
 
@@ -71,9 +82,9 @@ fun MainScreen(
     }
 
     BottomSheet(
-        expandedHeight = screenHeight,
-        halfExpandedHeight = screenHeight / 2,
-        collapsedHeight = 100,
+        expandedHeight = screenHeight.dp - (sizeOfSearchBar + SearchBarBottomMargin + SearchBarTopMargin),
+        halfExpandedHeight = (screenHeight / 2).dp,
+        collapsedHeight = 100.dp,
         expandedState = expandedState,
         isHeightControlledByHeight = isDetailRestaurantView.not(),
         stateChanged = { state ->
@@ -100,7 +111,10 @@ fun MainScreen(
 
                 Box(
                     modifier = Modifier
-                        .padding(top = 14.dp, start = 24.dp, end = 24.dp)
+                        .padding(top = SearchBarTopMargin, start = 24.dp, end = 24.dp)
+                        .onGloballyPositioned { coordinates ->
+                            with(density) { sizeOfSearchBar = coordinates.size.height.toDp() }
+                        },
                 ) {
                     SearchBar(
                         modifier = Modifier
@@ -141,7 +155,11 @@ fun MainScreen(
                     modifier = Modifier
                         .padding(start = 24.dp, end = 24.dp, top = 24.dp),
                     userScrollEnabled = userScrollEnabled,
-                    restaurants = state.entireRestaurant
+                    restaurants = when (expandedState) {
+                        ExpandedState.HALF -> state.entireRestaurant.take(2)
+                        ExpandedState.FULL -> state.entireRestaurant
+                        ExpandedState.COLLAPSED -> state.entireRestaurant.take(0)
+                    }
                 ) { restaurant ->
                     onEventSent.invoke(MainContract.Event.ClickRestaurant(restaurant))
                 }
