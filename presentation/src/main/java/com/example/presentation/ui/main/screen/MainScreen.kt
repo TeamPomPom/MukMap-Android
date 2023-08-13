@@ -1,14 +1,14 @@
 package com.example.presentation.ui.main.screen
 
 import android.graphics.PointF
-import android.util.Log
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBars
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -16,16 +16,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.boundsInWindow
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.presentation.R
 import com.example.presentation.theme.MukMapTheme
+import com.example.presentation.theme.titleFont
 import com.example.presentation.ui.base.composable.BottomSheet
 import com.example.presentation.ui.base.composable.ExpandedState
 import com.example.presentation.ui.base.composable.RestaurantInfoList
@@ -58,10 +58,16 @@ fun MainScreen(
     onNavigationFlow: (MainContract.Effect.Navigation) -> Unit
 ) {
 
+    val density = LocalDensity.current
+    val configuration = LocalConfiguration.current
+    val screenHeight = configuration.screenHeightDp
+
     var userScrollEnabled by remember { mutableStateOf(false) }
     var isDetailRestaurantView by remember { mutableStateOf(false) }
     var expandedState by remember { mutableStateOf(ExpandedState.HALF) }
     var sizeOfSearchBar by remember { mutableStateOf(0.dp) }
+    var sizeOfBottomSheetContentHalf by remember { mutableStateOf(screenHeight.dp) }
+    var sizeOfBottomSheetContentCollapsed by remember { mutableStateOf(screenHeight.dp) }
 
     LaunchedEffect(key1 = true) {
         effectFlow.onEach { effect ->
@@ -73,18 +79,14 @@ fun MainScreen(
         }.collect()
     }
 
-    val density = LocalDensity.current
-    val configuration = LocalConfiguration.current
-    val screenHeight = configuration.screenHeightDp
-
     LaunchedEffect(state.searchedRestaurant) {
         isDetailRestaurantView = state.searchedRestaurant != null
     }
 
     BottomSheet(
         expandedHeight = screenHeight.dp - (sizeOfSearchBar + SearchBarBottomMargin + SearchBarTopMargin),
-        halfExpandedHeight = (screenHeight / 2).dp,
-        collapsedHeight = 100.dp,
+        halfExpandedHeight = sizeOfBottomSheetContentHalf,
+        collapsedHeight = sizeOfBottomSheetContentCollapsed,
         expandedState = expandedState,
         isHeightControlledByHeight = isDetailRestaurantView.not(),
         stateChanged = { state ->
@@ -151,17 +153,32 @@ fun MainScreen(
                     )
                 }
             } else {
-                RestaurantInfoList(
+                Column(
                     modifier = Modifier
-                        .padding(start = 24.dp, end = 24.dp, top = 24.dp),
-                    userScrollEnabled = userScrollEnabled,
-                    restaurants = when (expandedState) {
-                        ExpandedState.HALF -> state.entireRestaurant.take(2)
-                        ExpandedState.FULL -> state.entireRestaurant
-                        ExpandedState.COLLAPSED -> state.entireRestaurant.take(0)
+                        .padding(horizontal = 24.dp)
+                        .onGloballyPositioned { coordinates ->
+                            with(density) {
+                                when (expandedState) {
+                                    ExpandedState.HALF -> { if (sizeOfBottomSheetContentHalf == screenHeight.dp) sizeOfBottomSheetContentHalf = coordinates.size.height.toDp() }
+                                    ExpandedState.COLLAPSED -> { if (sizeOfBottomSheetContentCollapsed == screenHeight.dp) sizeOfBottomSheetContentCollapsed = coordinates.size.height.toDp() }
+                                    ExpandedState.FULL -> { }
+                                }
+                            }
+                        }
+                ) {
+                    Spacer(modifier = Modifier.height(24.dp))
+                    Text(text = "최근에 방영된 음식점", style = titleFont(20.sp))
+                    Spacer(modifier = Modifier.height(20.dp))
+                    RestaurantInfoList(
+                        userScrollEnabled = userScrollEnabled,
+                        restaurants = when (expandedState) {
+                            ExpandedState.HALF -> state.entireRestaurant.take(2)
+                            ExpandedState.FULL -> state.entireRestaurant
+                            ExpandedState.COLLAPSED -> state.entireRestaurant.take(0)
+                        }
+                    ) { restaurant ->
+                        onEventSent.invoke(MainContract.Event.ClickRestaurant(restaurant))
                     }
-                ) { restaurant ->
-                    onEventSent.invoke(MainContract.Event.ClickRestaurant(restaurant))
                 }
             }
         })
