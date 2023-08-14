@@ -170,6 +170,12 @@ fun MainScreen(
                     Text(text = "최근에 방영된 음식점", style = titleFont(20.sp))
                     Spacer(modifier = Modifier.height(20.dp))
                     RestaurantInfoList(
+                        onFirstItemTop = {
+                            if (expandedState == ExpandedState.FULL) {
+                                expandedState = ExpandedState.HALF
+                                userScrollEnabled = false
+                            }
+                        },
                         userScrollEnabled = userScrollEnabled,
                         restaurants = when (expandedState) {
                             ExpandedState.HALF -> state.entireRestaurant.take(2)
