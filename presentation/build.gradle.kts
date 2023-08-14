@@ -101,4 +101,7 @@ dependencies {
     // NaverMap
     implementation("com.naver.maps:map-sdk:3.17.0")
     implementation("io.github.fornewid:naver-map-compose:1.3.3")
+
+    // coil
+    implementation("io.coil-kt:coil-compose:2.4.0")
 }

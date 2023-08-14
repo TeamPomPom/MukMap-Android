@@ -134,23 +134,28 @@ fun MainScreen(
             if (isDetailRestaurantView) {
                 state.searchedRestaurant?.let { restaurant ->
                     expandedState = ExpandedState.FULL
-                    RestaurantDetail(
-                        restaurant = restaurant,
-                        restaurantDetailClickAction = object : RestaurantDetailClickAction {
-                            override fun exitButtonClicked() {
-                                isDetailRestaurantView = false
-                                expandedState = ExpandedState.COLLAPSED
+                    Box(
+                        modifier = Modifier
+                            .padding(start = 20.dp, end = 20.dp, top = 24.dp, bottom = 44.dp)
+                    ) {
+                        RestaurantDetail(
+                            restaurant = restaurant,
+                            restaurantDetailClickAction = object : RestaurantDetailClickAction {
+                                override fun exitButtonClicked() {
+                                    isDetailRestaurantView = false
+                                    expandedState = ExpandedState.COLLAPSED
+                                }
+
+                                override fun naverButtonClicked() {
+
+                                }
+
+                                override fun youtubeButtonClicked() {
+
+                                }
                             }
-
-                            override fun naverButtonClicked() {
-
-                            }
-
-                            override fun youtubeButtonClicked() {
-
-                            }
-                        }
-                    )
+                        )
+                    }
                 }
             } else {
                 Column(
