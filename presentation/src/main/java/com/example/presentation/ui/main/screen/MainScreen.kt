@@ -1,13 +1,18 @@
 package com.example.presentation.ui.main.screen
 
 import android.graphics.PointF
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBars
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -61,6 +66,7 @@ fun MainScreen(
     val density = LocalDensity.current
     val configuration = LocalConfiguration.current
     val screenHeight = configuration.screenHeightDp
+    val statusBarHeight = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
 
     var userScrollEnabled by remember { mutableStateOf(false) }
     var isDetailRestaurantView by remember { mutableStateOf(false) }
@@ -88,9 +94,9 @@ fun MainScreen(
     }
 
     BottomSheet(
-        expandedHeight = screenHeight.dp - (sizeOfSearchBar + SearchBarBottomMargin + SearchBarTopMargin),
-        halfExpandedHeight = sizeOfBottomSheetContentHalf,
-        collapsedHeight = sizeOfBottomSheetContentCollapsed,
+        expandedHeight = screenHeight.dp - (sizeOfSearchBar + SearchBarBottomMargin + SearchBarTopMargin) + statusBarHeight,
+        halfExpandedHeight = sizeOfBottomSheetContentHalf + statusBarHeight,
+        collapsedHeight = sizeOfBottomSheetContentCollapsed + statusBarHeight,
         expandedState = expandedState,
         isHeightControlledByHeight = isDetailRestaurantView.not(),
         stateChanged = { state ->
@@ -116,6 +122,7 @@ fun MainScreen(
 
                 Box(
                     modifier = Modifier
+                        .statusBarsPadding()
                         .padding(top = SearchBarTopMargin, start = 24.dp, end = 24.dp)
                         .onGloballyPositioned { coordinates ->
                             with(density) { sizeOfSearchBar = coordinates.size.height.toDp() }
