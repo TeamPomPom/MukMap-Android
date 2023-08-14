@@ -19,10 +19,14 @@ class MainViewModel @Inject constructor(
     override fun handleEvents(event: MainContract.Event) {
         when (event) {
             is MainContract.Event.ClickRestaurant -> {
-                setState { copy(searchedRestaurant = event.restaurant) }
+                setState { copy(searchedRestaurant = event.restaurant.copy()) }
             }
             MainContract.Event.ClickSearch -> {
                 setEffect { MainContract.Effect.Navigation.MoveToSearchScreen }
+            }
+            MainContract.Event.RefreshSearchedRestaurant -> {
+                setState { copy(searchedRestaurant = null) }
+                setEffect { MainContract.Effect.InitBottomSheetState }
             }
         }
     }

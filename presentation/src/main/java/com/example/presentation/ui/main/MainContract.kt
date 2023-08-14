@@ -9,6 +9,7 @@ object MainContract {
     sealed class Event : ViewEvent {
         object ClickSearch : Event()
         class ClickRestaurant(val restaurant: RestaurantsEntity.Restaurant) : Event()
+        object RefreshSearchedRestaurant : Event()
     }
 
     data class State(
@@ -18,6 +19,7 @@ object MainContract {
     ) : ViewState
 
     sealed class Effect : ViewSideEffect {
+        object InitBottomSheetState : Effect()
         sealed class Navigation : Effect() {
             object MoveToSearchScreen : Navigation()
         }

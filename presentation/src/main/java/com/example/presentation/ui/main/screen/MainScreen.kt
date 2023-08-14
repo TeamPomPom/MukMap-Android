@@ -75,6 +75,10 @@ fun MainScreen(
                 is MainContract.Effect.Navigation -> {
                     onNavigationFlow(effect)
                 }
+                MainContract.Effect.InitBottomSheetState -> {
+                    expandedState = ExpandedState.COLLAPSED
+                    isDetailRestaurantView = false
+                }
             }
         }.collect()
     }
@@ -107,8 +111,7 @@ fun MainScreen(
                         onEventSent.invoke(MainContract.Event.ClickRestaurant(restaurant = restaurant))
                     }
                 ) { pointF, latLng ->
-                    expandedState = ExpandedState.COLLAPSED
-                    isDetailRestaurantView = false
+                    onEventSent.invoke(MainContract.Event.RefreshSearchedRestaurant)
                 }
 
                 Box(
@@ -142,8 +145,7 @@ fun MainScreen(
                             restaurant = restaurant,
                             restaurantDetailClickAction = object : RestaurantDetailClickAction {
                                 override fun exitButtonClicked() {
-                                    isDetailRestaurantView = false
-                                    expandedState = ExpandedState.COLLAPSED
+                                    onEventSent.invoke(MainContract.Event.RefreshSearchedRestaurant)
                                 }
 
                                 override fun naverButtonClicked() {

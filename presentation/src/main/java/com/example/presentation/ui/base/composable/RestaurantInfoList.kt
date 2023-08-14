@@ -1,6 +1,7 @@
 package com.example.presentation.ui.base.composable
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -61,6 +62,7 @@ fun RestaurantInfoList(
             }
             RestaurantInfo(
                 modifier = Modifier
+                    .fillMaxWidth()
                     .clickable { onClickRestaurant.invoke(item) }
                     .padding(vertical = 20.dp),
                 restaurant = item
