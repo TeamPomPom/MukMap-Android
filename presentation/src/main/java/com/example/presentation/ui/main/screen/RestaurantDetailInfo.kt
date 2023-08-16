@@ -52,7 +52,7 @@ fun RestaurantDetail(
             )
             Row {
                 Image(
-                    modifier = Modifier.clickable { restaurantDetailClickAction.naverButtonClicked() },
+                    modifier = Modifier.clickable { restaurant.naverPlaceId?.let { restaurantDetailClickAction.naverButtonClicked(it) } },
                     painter = painterResource(id = R.drawable.ic_naver),
                     contentDescription = "naverIcon"
                 )
@@ -123,7 +123,7 @@ private fun RestaurantsEntity.Restaurant.extractTitle(): Pair<String?, String?> 
 
 interface RestaurantDetailClickAction {
     fun exitButtonClicked()
-    fun naverButtonClicked()
+    fun naverButtonClicked(placeId: String)
     fun youtubeButtonClicked()
 }
 
@@ -136,7 +136,7 @@ fun RestaurantDetailPreview() {
             restaurantDetailClickAction = object : RestaurantDetailClickAction {
                 override fun exitButtonClicked() {}
 
-                override fun naverButtonClicked() {}
+                override fun naverButtonClicked(placeId: String) { }
 
                 override fun youtubeButtonClicked() {}
             }

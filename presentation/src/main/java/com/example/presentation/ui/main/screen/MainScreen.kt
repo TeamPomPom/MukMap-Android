@@ -1,7 +1,10 @@
 package com.example.presentation.ui.main.screen
 
+import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.Intent
 import android.graphics.PointF
-import android.util.Log
+import android.net.Uri
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +13,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.statusBarsPadding
@@ -52,6 +56,7 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.onEach
 import team.pompom.mukmap.model.restaurants.RestaurantsEntity
 
+
 val SearchBarTopMargin = 14.dp
 val SearchBarBottomMargin = 24.dp
 
@@ -65,6 +70,7 @@ fun MainScreen(
 
     val density = LocalDensity.current
     val configuration = LocalConfiguration.current
+    val context = LocalContext.current
     val screenHeight = configuration.screenHeightDp
     val statusBarHeight = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
 
@@ -84,6 +90,9 @@ fun MainScreen(
                 MainContract.Effect.InitBottomSheetState -> {
                     expandedState = ExpandedState.COLLAPSED
                     isDetailRestaurantView = false
+                }
+                is MainContract.Effect.MoveToNaverMap -> {
+                    moveToNaverMap(context = context, placeId = effect.placeId)
                 }
             }
         }.collect()
@@ -147,6 +156,7 @@ fun MainScreen(
                     Box(
                         modifier = Modifier
                             .padding(start = 20.dp, end = 20.dp, top = 24.dp, bottom = 44.dp)
+                            .navigationBarsPadding()
                     ) {
                         RestaurantDetail(
                             restaurant = restaurant,
@@ -155,8 +165,8 @@ fun MainScreen(
                                     onEventSent.invoke(MainContract.Event.RefreshSearchedRestaurant)
                                 }
 
-                                override fun naverButtonClicked() {
-
+                                override fun naverButtonClicked(placeId: String) {
+                                    onEventSent.invoke(MainContract.Event.NaverButtonClicked(placeId))
                                 }
 
                                 override fun youtubeButtonClicked() {
@@ -204,6 +214,26 @@ fun MainScreen(
         })
 }
 
+private fun moveToNaverMap(
+    context: Context,
+    placeId: String,
+) {
+    val url = "nmap://place?id=$placeId&appname=team.pompom.mukmap"
+    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+    intent.addCategory(Intent.CATEGORY_BROWSABLE)
+
+    try {
+        context.startActivity(intent)
+    } catch (e: ActivityNotFoundException) {
+        context.startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("market://details?id=com.nhn.android.nmap")
+            )
+        )
+    }
+}
+
 @Composable
 @OptIn(ExperimentalNaverMapApi::class)
 fun MapScreen(
@@ -212,8 +242,6 @@ fun MapScreen(
     onMarkerClicked: (RestaurantsEntity.Restaurant) -> Unit,
     onMapClicked: (PointF, LatLng) -> Unit,
 ) {
-    val context = LocalContext.current
-
     val cameraPositionState = rememberCameraPositionState()
 
     if (selectedRestaurant != null) {

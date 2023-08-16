@@ -27,7 +27,7 @@ data class RemoteRestaurantDataModel(
             data class YoutubeVideo(
                 @SerializedName("youtube_url") var youtubeUrl: String? = null,
                 @SerializedName("youtube_thumbnail") var youtubeThumbnail: String? = null,
-                @SerializedName("naver_place_url") var naverPlaceUrl: String? = null,
+                @SerializedName("place_id") var naverPlaceId: String? = null,
                 @SerializedName("episode_num") var episodeNum: Int? = null,
                 @SerializedName("youtube_title") var youtubeTitle: String? = null,
             )

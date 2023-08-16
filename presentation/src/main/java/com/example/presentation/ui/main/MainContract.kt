@@ -10,6 +10,8 @@ object MainContract {
         object ClickSearch : Event()
         class ClickRestaurant(val restaurant: RestaurantsEntity.Restaurant) : Event()
         object RefreshSearchedRestaurant : Event()
+
+        data class NaverButtonClicked(val placeId: String) : Event()
     }
 
     data class State(
@@ -20,6 +22,7 @@ object MainContract {
 
     sealed class Effect : ViewSideEffect {
         object InitBottomSheetState : Effect()
+        data class MoveToNaverMap(val placeId: String) : Effect()
         sealed class Navigation : Effect() {
             object MoveToSearchScreen : Navigation()
         }

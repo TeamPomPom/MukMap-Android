@@ -10,7 +10,7 @@ data class LocalRestaurantDataModel(
     val fullAddress: String?,
     val youtubeThumbnail: String?,
     val youtubeUrl: String?,
-    val naverPlaceUrl: String?,
+    val naverPlaceId: String?,
     val mainCategory: String?,
     val subCategory: List<String>?,
     val episodeNum: Int?,

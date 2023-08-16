@@ -28,6 +28,9 @@ class MainViewModel @Inject constructor(
                 setState { copy(searchedRestaurant = null) }
                 setEffect { MainContract.Effect.InitBottomSheetState }
             }
+            is MainContract.Event.NaverButtonClicked -> {
+                setEffect { MainContract.Effect.MoveToNaverMap(event.placeId) }
+            }
         }
     }
 

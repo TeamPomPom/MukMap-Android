@@ -14,7 +14,7 @@ data class LocalRestaurantsEntity(
     val fullAddress: String?,
     val youtubeThumbnail: String?,
     val youtubeUrl: String?,
-    val naverPlaceUrl: String?,
+    val naverPlaceId: String?,
     val mainCategory: String?,
     val subCategory: ArrayList<String>?,
     val episodeNum: Int?,
