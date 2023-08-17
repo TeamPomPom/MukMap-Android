@@ -94,6 +94,8 @@ fun MainScreen(
                 is MainContract.Effect.MoveToNaverMap -> {
                     moveToNaverMap(context = context, placeId = effect.placeId)
                 }
+
+                is MainContract.Effect.MoveToYoutubeApp -> moveToYoutubeApp(youtubeVideoId = effect.youtubeVideoId, context = context)
             }
         }.collect()
     }
@@ -169,8 +171,8 @@ fun MainScreen(
                                     onEventSent.invoke(MainContract.Event.NaverButtonClicked(placeId))
                                 }
 
-                                override fun youtubeButtonClicked() {
-
+                                override fun youtubeButtonClicked(youtubeVideoId: String) {
+                                    onEventSent.invoke(MainContract.Event.YoutubeButtonClicked(youtubeVideoId))
                                 }
                             }
                         )
@@ -183,9 +185,17 @@ fun MainScreen(
                         .onGloballyPositioned { coordinates ->
                             with(density) {
                                 when (expandedState) {
-                                    ExpandedState.HALF -> { if (sizeOfBottomSheetContentHalf == screenHeight.dp) sizeOfBottomSheetContentHalf = coordinates.size.height.toDp() }
-                                    ExpandedState.COLLAPSED -> { if (sizeOfBottomSheetContentCollapsed == screenHeight.dp) sizeOfBottomSheetContentCollapsed = coordinates.size.height.toDp() }
-                                    ExpandedState.FULL -> { }
+                                    ExpandedState.HALF -> {
+                                        if (sizeOfBottomSheetContentHalf == screenHeight.dp) sizeOfBottomSheetContentHalf =
+                                            coordinates.size.height.toDp()
+                                    }
+
+                                    ExpandedState.COLLAPSED -> {
+                                        if (sizeOfBottomSheetContentCollapsed == screenHeight.dp) sizeOfBottomSheetContentCollapsed =
+                                            coordinates.size.height.toDp()
+                                    }
+
+                                    ExpandedState.FULL -> {}
                                 }
                             }
                         }
@@ -229,6 +239,26 @@ private fun moveToNaverMap(
             Intent(
                 Intent.ACTION_VIEW,
                 Uri.parse("market://details?id=com.nhn.android.nmap")
+            )
+        )
+    }
+}
+
+private fun moveToYoutubeApp(
+    youtubeVideoId: String,
+    context: Context,
+) {
+    val intent = Intent(
+        Intent.ACTION_VIEW,
+        Uri.parse("vnd.youtube://$youtubeVideoId")
+    )
+    try {
+        context.startActivity(intent)
+    } catch (e: ActivityNotFoundException) {
+        context.startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("market://details?id=com.google.android.youtube")
             )
         )
     }

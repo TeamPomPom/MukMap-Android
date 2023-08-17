@@ -14,7 +14,7 @@ data class RestaurantsEntity(
         val fullAddress: String?,
         val youtubeTitle: String?,
         val youtubeThumbnail: String?,
-        val youtubeUrl: String?,
+        val youtubeVideoId: String?,
         val naverPlaceId: String?,
         val mainCategory: String?,
         val subCategory: List<String>?,

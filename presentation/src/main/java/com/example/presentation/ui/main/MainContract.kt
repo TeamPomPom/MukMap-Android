@@ -12,6 +12,8 @@ object MainContract {
         object RefreshSearchedRestaurant : Event()
 
         data class NaverButtonClicked(val placeId: String) : Event()
+
+        data class YoutubeButtonClicked(val youtubeVideoId: String) : Event()
     }
 
     data class State(
@@ -23,6 +25,8 @@ object MainContract {
     sealed class Effect : ViewSideEffect {
         object InitBottomSheetState : Effect()
         data class MoveToNaverMap(val placeId: String) : Effect()
+
+        data class MoveToYoutubeApp(val youtubeVideoId: String) : Effect()
         sealed class Navigation : Effect() {
             object MoveToSearchScreen : Navigation()
         }

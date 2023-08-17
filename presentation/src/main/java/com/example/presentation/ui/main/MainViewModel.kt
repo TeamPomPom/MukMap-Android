@@ -31,6 +31,9 @@ class MainViewModel @Inject constructor(
             is MainContract.Event.NaverButtonClicked -> {
                 setEffect { MainContract.Effect.MoveToNaverMap(event.placeId) }
             }
+            is MainContract.Event.YoutubeButtonClicked -> {
+                setEffect { MainContract.Effect.MoveToYoutubeApp(event.youtubeVideoId) }
+            }
         }
     }
 

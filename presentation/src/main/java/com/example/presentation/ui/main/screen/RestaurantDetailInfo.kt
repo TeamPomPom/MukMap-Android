@@ -80,7 +80,9 @@ fun RestaurantDetail(
                         .background(Color.Black)
                 ) {
                     AsyncImage(
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .clickable { restaurant.youtubeVideoId?.let { restaurantDetailClickAction.youtubeButtonClicked(it) } },
                         model = restaurant.youtubeThumbnail,
                         contentDescription = null,
                         contentScale = ContentScale.FillBounds
@@ -124,7 +126,7 @@ private fun RestaurantsEntity.Restaurant.extractTitle(): Pair<String?, String?> 
 interface RestaurantDetailClickAction {
     fun exitButtonClicked()
     fun naverButtonClicked(placeId: String)
-    fun youtubeButtonClicked()
+    fun youtubeButtonClicked(youtubeVideoId: String)
 }
 
 @Composable
@@ -138,7 +140,7 @@ fun RestaurantDetailPreview() {
 
                 override fun naverButtonClicked(placeId: String) { }
 
-                override fun youtubeButtonClicked() {}
+                override fun youtubeButtonClicked(youtubeVideoId: String) { }
             }
         )
     }
