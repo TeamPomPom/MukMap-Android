@@ -22,4 +22,5 @@ data class LocalRestaurantsEntity(
     val district: String?,
     val oldDistrict: String?,
     val youtubeTitle: String?,
+    val episodeNumText: String = "${episodeNum}화"
 ) : BaseLocalEntity

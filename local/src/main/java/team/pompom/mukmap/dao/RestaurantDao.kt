@@ -24,7 +24,8 @@ interface RestaurantDao {
                 "OR fullAddress LIKE '%' || :keyword || '%' " +
                 "OR oldDistrict LIKE '%' || :keyword || '%' " +
                 "OR mainCategory LIKE '%' || :keyword || '%' " +
-                "OR subCategory LIKE '%' || :keyword || '%' "
+                "OR subCategory LIKE '%' || :keyword || '%' " +
+                "OR episodeNumText LIKE '%' || :keyword || '%' "
     )
     suspend fun searchRestaurants(keyword: String): List<LocalRestaurantsEntity>
 }
