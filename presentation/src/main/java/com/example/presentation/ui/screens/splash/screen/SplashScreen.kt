@@ -7,8 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.presentation.theme.MukMapTheme
+import com.example.presentation.ui.screens.common.MukMapPreviews
 import com.example.presentation.ui.screens.common.dummyRestaurant
 import com.example.presentation.ui.screens.splash.SplashContract
 import com.example.presentation.ui.screens.splash.screen.components.SplashLoading
@@ -70,7 +70,7 @@ fun SplashNetworkError() {
 }
 
 @Composable
-@Preview(showBackground = true)
+@MukMapPreviews
 fun SplashScreenPreview() {
     MukMapTheme {
         SplashScreen(
@@ -87,7 +87,7 @@ fun SplashScreenPreview() {
 }
 
 @Composable
-@Preview(showBackground = true)
+@MukMapPreviews
 fun SplashScreenPreviewNetworkError() {
     MukMapTheme {
         SplashScreen(

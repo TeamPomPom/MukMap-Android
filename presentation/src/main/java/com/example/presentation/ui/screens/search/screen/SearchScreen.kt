@@ -16,13 +16,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.presentation.R
 import com.example.presentation.theme.MukMapTheme
 import com.example.presentation.theme.defaultBackground
-import com.example.presentation.ui.screens.common.composable.SearchBar
+import com.example.presentation.ui.screens.common.MukMapPreviews
 import com.example.presentation.ui.screens.common.composable.RestaurantInfoList
+import com.example.presentation.ui.screens.common.composable.SearchBar
 import com.example.presentation.ui.screens.common.dummyRestaurant
 import com.example.presentation.ui.screens.search.SearchContract
 import kotlinx.coroutines.flow.Flow
@@ -89,7 +89,7 @@ fun SearchScreen(
 }
 
 @Composable
-@Preview(showBackground = true)
+@MukMapPreviews
 fun SearchScreenPreview() {
     MukMapTheme {
         SearchScreen(

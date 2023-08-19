@@ -9,7 +9,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.presentation.theme.MukMapTheme
@@ -18,6 +17,7 @@ import com.example.presentation.theme.contentFont
 import com.example.presentation.theme.primaryContent
 import com.example.presentation.theme.titleContent
 import com.example.presentation.theme.titleFont
+import com.example.presentation.ui.screens.common.MukMapPreviews
 import com.example.presentation.ui.screens.common.composable.TagText
 import com.example.presentation.ui.screens.common.dummyRestaurant
 import team.pompom.mukmap.model.restaurants.RestaurantsEntity
@@ -90,7 +90,7 @@ fun RestaurantAddress(address: String?) {
 }
 
 @Composable
-@Preview(showBackground = true)
+@MukMapPreviews
 fun RestaurantInfoPreview() {
     MukMapTheme {
         RestaurantInfo(restaurant = dummyRestaurant)

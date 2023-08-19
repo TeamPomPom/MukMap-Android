@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,16 +24,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.presentation.theme.MukMapTheme
 import com.example.presentation.theme.titleFont
+import com.example.presentation.ui.screens.common.MukMapPreviews
 import com.example.presentation.ui.screens.common.composable.BottomSheet
 import com.example.presentation.ui.screens.common.composable.ExpandedState
 import com.example.presentation.ui.screens.common.composable.RestaurantInfoList
@@ -97,8 +102,8 @@ fun MainScreen(
 
     BottomSheet(
         expandedHeight = screenHeight.dp - (sizeOfSearchBar + SearchBarBottomMargin + SearchBarTopMargin) + statusBarHeight,
-        halfExpandedHeight = sizeOfBottomSheetContentHalf + statusBarHeight,
-        collapsedHeight = sizeOfBottomSheetContentCollapsed + statusBarHeight,
+        halfExpandedHeight = (sizeOfBottomSheetContentHalf + statusBarHeight).run { if (LocalInspectionMode.current) this / 2 else this },
+        collapsedHeight = (sizeOfBottomSheetContentCollapsed + statusBarHeight).run { if (LocalInspectionMode.current) this / 2 else this },
         expandedState = expandedState,
         isHeightControlledByHeight = isDetailRestaurantView.not(),
         stateChanged = { state ->
@@ -112,14 +117,22 @@ fun MainScreen(
             Box(
                 modifier = Modifier.fillMaxSize()
             ) {
-                MapScreen(
-                    restaurants = state.entireRestaurant,
-                    selectedRestaurant = state.searchedRestaurant,
-                    onMarkerClicked = { restaurant ->
-                        onEventSent.invoke(MainContract.Event.ClickRestaurant(restaurant = restaurant))
+                if (LocalInspectionMode.current) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(Color.Gray)
+                    ) { }
+                } else {
+                    MapScreen(
+                        restaurants = state.entireRestaurant,
+                        selectedRestaurant = state.searchedRestaurant,
+                        onMarkerClicked = { restaurant ->
+                            onEventSent.invoke(MainContract.Event.ClickRestaurant(restaurant = restaurant))
+                        }
+                    ) { pointF, latLng ->
+                        onEventSent.invoke(MainContract.Event.RefreshSearchedRestaurant)
                     }
-                ) { pointF, latLng ->
-                    onEventSent.invoke(MainContract.Event.RefreshSearchedRestaurant)
                 }
 
                 Box(
@@ -256,7 +269,7 @@ private fun moveToYoutubeApp(
 }
 
 @Composable
-@Preview(showBackground = true)
+@MukMapPreviews
 fun MainScreenPreview() {
     MukMapTheme {
         MainScreen(
