@@ -18,6 +18,13 @@ interface RestaurantDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertRestaurants(restaurants: List<LocalRestaurantsEntity>)
 
-    @Query("SELECT * FROM ${BaekDatabase.TABLE_RESTAURANT} WHERE name LIKE '%' || :keyword || '%'")
+    @Query(
+        "SELECT * FROM ${BaekDatabase.TABLE_RESTAURANT} " +
+                "WHERE name LIKE '%' || :keyword || '%' " +
+                "OR fullAddress LIKE '%' || :keyword || '%' " +
+                "OR oldDistrict LIKE '%' || :keyword || '%' " +
+                "OR mainCategory LIKE '%' || :keyword || '%' " +
+                "OR subCategory LIKE '%' || :keyword || '%' "
+    )
     suspend fun searchRestaurants(keyword: String): List<LocalRestaurantsEntity>
 }
