@@ -1,4 +1,4 @@
-package com.example.presentation.ui.screens.common
+package com.example.presentation.ui.screens.common.previewparameter
 
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import team.pompom.mukmap.model.restaurants.RestaurantsEntity

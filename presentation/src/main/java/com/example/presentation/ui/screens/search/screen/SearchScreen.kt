@@ -23,7 +23,7 @@ import com.example.presentation.theme.defaultBackground
 import com.example.presentation.ui.screens.common.MukMapPreviews
 import com.example.presentation.ui.screens.common.composable.RestaurantInfoList
 import com.example.presentation.ui.screens.common.composable.SearchBar
-import com.example.presentation.ui.screens.common.dummyRestaurant
+import com.example.presentation.ui.screens.common.previewparameter.dummyRestaurant
 import com.example.presentation.ui.screens.search.SearchContract
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect

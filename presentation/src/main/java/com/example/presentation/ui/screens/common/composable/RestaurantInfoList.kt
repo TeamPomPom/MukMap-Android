@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.example.presentation.base.extension.conditional
 import com.example.presentation.theme.MukMapTheme
 import com.example.presentation.theme.defaultDivider
-import com.example.presentation.ui.screens.common.dummyRestaurant
+import com.example.presentation.ui.screens.common.previewparameter.dummyRestaurant
 import com.example.presentation.ui.screens.main.screen.components.RestaurantInfo
 import team.pompom.mukmap.model.restaurants.RestaurantsEntity
 

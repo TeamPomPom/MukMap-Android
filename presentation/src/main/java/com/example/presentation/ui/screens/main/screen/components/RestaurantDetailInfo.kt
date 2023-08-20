@@ -35,7 +35,7 @@ import com.example.presentation.theme.primaryContent
 import com.example.presentation.theme.titleFont
 import com.example.presentation.theme.youtubeBackgroundInfo
 import com.example.presentation.ui.screens.common.MukMapPreviews
-import com.example.presentation.ui.screens.common.RestaurantPreviewParameterProvider
+import com.example.presentation.ui.screens.common.previewparameter.RestaurantPreviewParameterProvider
 import team.pompom.mukmap.model.restaurants.RestaurantsEntity
 
 @Composable

@@ -24,7 +24,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
@@ -32,7 +31,6 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalInspectionMode
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.presentation.theme.MukMapTheme
@@ -42,7 +40,7 @@ import com.example.presentation.ui.screens.common.composable.BottomSheet
 import com.example.presentation.ui.screens.common.composable.ExpandedState
 import com.example.presentation.ui.screens.common.composable.RestaurantInfoList
 import com.example.presentation.ui.screens.common.composable.SearchBar
-import com.example.presentation.ui.screens.common.dummyRestaurant
+import com.example.presentation.ui.screens.common.previewparameter.dummyRestaurant
 import com.example.presentation.ui.screens.main.MainContract
 import com.example.presentation.ui.screens.main.screen.components.MapScreen
 import com.example.presentation.ui.screens.main.screen.components.RestaurantDetail

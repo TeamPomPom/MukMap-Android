@@ -7,9 +7,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import com.example.presentation.theme.MukMapTheme
 import com.example.presentation.ui.screens.common.MukMapPreviews
-import com.example.presentation.ui.screens.common.dummyRestaurant
+import com.example.presentation.ui.screens.common.composable.errordialog.OneButtonPopUpDialog
+import com.example.presentation.ui.screens.common.previewparameter.dummyRestaurant
 import com.example.presentation.ui.screens.splash.SplashContract
 import com.example.presentation.ui.screens.splash.screen.components.SplashLoading
 import kotlinx.coroutines.flow.Flow
@@ -24,6 +26,7 @@ fun SplashScreen(
     onEventSent: (event: SplashContract.Event) -> Unit,
     onNavigationRequested: (navigationEffect: SplashContract.Effect.Navigation) -> Unit
 ) {
+    val context = LocalContext.current
     LaunchedEffect(key1 = true) {
         effectFlow.onEach { effect ->
             when (effect) {
@@ -56,17 +59,18 @@ fun SplashScreen(
                     .fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
-                SplashNetworkError()
+                OneButtonPopUpDialog(
+                    contentsText = "문제가 발생했습니다 다시 시도해 주세요",
+                    buttonText = "확인",
+                    onClickButton = {
+
+                    },
+                    onDismissRequest = {
+
+                    })
             }
         }
     }
-}
-
-
-@Composable
-fun SplashNetworkError() {
-    // TODO : ErrorPage View 작업
-    Text(text = "에러 있어용")
 }
 
 @Composable

@@ -19,7 +19,7 @@ import com.example.presentation.theme.titleContent
 import com.example.presentation.theme.titleFont
 import com.example.presentation.ui.screens.common.MukMapPreviews
 import com.example.presentation.ui.screens.common.composable.TagText
-import com.example.presentation.ui.screens.common.dummyRestaurant
+import com.example.presentation.ui.screens.common.previewparameter.dummyRestaurant
 import team.pompom.mukmap.model.restaurants.RestaurantsEntity
 
 @Composable
