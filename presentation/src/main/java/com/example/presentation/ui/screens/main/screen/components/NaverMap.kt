@@ -47,7 +47,7 @@ fun MapScreen(
                 state = rememberMarkerState(
                     position = LatLng(restaurant.lat ?: 0.0, restaurant.lng ?: 0.0)
                 ),
-                icon = OverlayImage.fromResource(R.drawable.ic_mark),
+                icon = OverlayImage.fromResource(R.drawable.ic_mark_small),
                 captionText = restaurant.name,
                 onClick = { marker ->
                     onMarkerClicked.invoke(restaurant)
