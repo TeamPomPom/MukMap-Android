@@ -45,6 +45,7 @@ import com.example.presentation.ui.screens.main.MainContract
 import com.example.presentation.ui.screens.main.screen.components.MapScreen
 import com.example.presentation.ui.screens.main.screen.components.RestaurantDetail
 import com.example.presentation.ui.screens.main.screen.components.RestaurantDetailClickAction
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOf
@@ -104,6 +105,9 @@ fun MainScreen(
         collapsedHeight = (sizeOfBottomSheetContentCollapsed + statusBarHeight).run { if (LocalInspectionMode.current) this / 2 else this },
         expandedState = expandedState,
         isHeightControlledByHeight = isDetailRestaurantView.not(),
+        isCollapsedHeightZero = { isCollapsedHeightZero ->
+            if (isCollapsedHeightZero) onEventSent.invoke(MainContract.Event.RefreshSearchedRestaurant)
+        },
         stateChanged = { state ->
             expandedState = state
             userScrollEnabled = when (state) {
