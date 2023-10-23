@@ -10,7 +10,8 @@ import com.example.presentation.ui.screens.splash.screen.SplashScreen
 @Composable
 fun SplashScreenDestination(
     navController: NavController,
-    viewModel: SplashViewModel = hiltViewModel()
+    viewModel: SplashViewModel = hiltViewModel(),
+    popStackAction: () -> Unit
 ) {
     SplashScreen(
         state = viewModel.viewState.value,
@@ -18,9 +19,8 @@ fun SplashScreenDestination(
         onEventSent = { event -> viewModel.setEvent(event) },
         onNavigationRequested = { navigationEffect ->
             when (navigationEffect) {
-                SplashContract.Effect.Navigation.MoveToMain -> {
-                    navController.navigateToMain()
-                }
+                SplashContract.Effect.Navigation.MoveToMain -> navController.navigateToMain()
+                SplashContract.Effect.Navigation.FinishApp -> popStackAction.invoke()
                 SplashContract.Effect.Navigation.MoveToPlayStore -> TODO()
             }
         }

@@ -7,6 +7,7 @@ import team.pompom.mukmap.extension.domainResultFlatMapConcat
 import team.pompom.mukmap.usecase.InitUseCase
 import team.pompom.mukmap.usecase.RestaurantUseCase
 import javax.inject.Inject
+import javax.net.ssl.SSLHandshakeException
 
 @HiltViewModel
 class SplashViewModel @Inject constructor(
@@ -18,13 +19,14 @@ class SplashViewModel @Inject constructor(
         return SplashContract.State(
             restaurants = listOf(),
             networkLoading = true,
-            networkError = false,
+            errorStatus = null,
         )
     }
 
     override fun handleEvents(event: SplashContract.Event) {
         when (event) {
             SplashContract.Event.SuccessToGetRestaurant -> setEffect { SplashContract.Effect.Navigation.MoveToMain }
+            SplashContract.Event.OnErrorInSplash -> setEffect { SplashContract.Effect.Navigation.FinishApp }
         }
     }
 
@@ -43,20 +45,27 @@ class SplashViewModel @Inject constructor(
                         copy(
                             restaurants = it.restaurants,
                             networkLoading = false,
-                            networkError = false
+                            errorStatus = null
                         )
                     }
                 },
                 onError = {
-                    it.printStackTrace()
-                    Log.d("Ram test", "error, error data = $it")
                     setState {
                         copy(
                             restaurants = listOf(),
                             networkLoading = false,
-                            networkError = true
+                            errorStatus = when (it) {
+                                is SSLHandshakeException -> {
+                                    SplashContract.State.ErrorStatus(errorMsg = "기기의 인터넷 인증서에 문제가 있습니다. 문제가 지속된다면 remin1994@gmail.com 으로 문의 주세요")
+                                }
+                                else -> {
+                                    SplashContract.State.ErrorStatus(errorMsg = "문제가 발생했습니다 잠시 후 다시 시도해 주세요")
+                                }
+                            }
                         )
                     }
+                    it.printStackTrace()
+                    Log.d("Ram test", "error, error data = $it")
                 }
             )
     }

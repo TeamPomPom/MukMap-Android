@@ -9,16 +9,20 @@ class SplashContract {
 
     sealed class Event : ViewEvent {
         object SuccessToGetRestaurant : Event()
+        object OnErrorInSplash : Event()
     }
     data class State(
         val restaurants: List<RestaurantsEntity.Restaurant>,
         val networkLoading: Boolean,
-        val networkError: Boolean,
-    ) : ViewState
+        val errorStatus: ErrorStatus?,
+    ) : ViewState {
+        data class ErrorStatus(val errorMsg: String)
+    }
 
     sealed class Effect : ViewSideEffect {
-        sealed class Navigation() : Effect() {
+        sealed class Navigation : Effect() {
             object MoveToMain : Navigation()
+            object FinishApp : Navigation()
             object MoveToPlayStore : Navigation()
         }
     }

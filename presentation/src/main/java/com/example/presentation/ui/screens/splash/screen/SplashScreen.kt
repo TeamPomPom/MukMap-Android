@@ -2,7 +2,6 @@ package com.example.presentation.ui.screens.splash.screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -26,13 +25,10 @@ fun SplashScreen(
     onEventSent: (event: SplashContract.Event) -> Unit,
     onNavigationRequested: (navigationEffect: SplashContract.Effect.Navigation) -> Unit
 ) {
-    val context = LocalContext.current
     LaunchedEffect(key1 = true) {
         effectFlow.onEach { effect ->
             when (effect) {
-                is SplashContract.Effect.Navigation -> {
-                    onNavigationRequested(effect)
-                }
+                is SplashContract.Effect.Navigation -> onNavigationRequested(effect)
             }
         }.collect()
     }
@@ -53,20 +49,20 @@ fun SplashScreen(
                 SplashLoading()
             }
         }
-        state.networkError -> {
+        state.errorStatus != null -> {
             Box(
                 modifier = Modifier
                     .fillMaxSize(),
                 contentAlignment = Alignment.Center
             ) {
                 OneButtonPopUpDialog(
-                    contentsText = "문제가 발생했습니다 다시 시도해 주세요",
+                    contentsText = state.errorStatus.errorMsg,
                     buttonText = "확인",
                     onClickButton = {
-
+                        onEventSent.invoke(SplashContract.Event.OnErrorInSplash)
                     },
                     onDismissRequest = {
-
+                        onEventSent.invoke(SplashContract.Event.OnErrorInSplash)
                     })
             }
         }
@@ -81,7 +77,7 @@ fun SplashScreenPreview() {
             state = SplashContract.State(
                 restaurants = listOf(dummyRestaurant, dummyRestaurant, dummyRestaurant),
                 networkLoading = true,
-                networkError = false,
+                errorStatus = null,
             ),
             effectFlow = flowOf(),
             onEventSent = {},
@@ -98,7 +94,7 @@ fun SplashScreenPreviewNetworkError() {
             state = SplashContract.State(
                 restaurants = listOf(dummyRestaurant, dummyRestaurant, dummyRestaurant),
                 networkLoading = false,
-                networkError = true,
+                errorStatus = SplashContract.State.ErrorStatus(errorMsg = "문제가 발생했습니다 다시 시도해 주세요"),
             ),
             effectFlow = flowOf(),
             onEventSent = {},

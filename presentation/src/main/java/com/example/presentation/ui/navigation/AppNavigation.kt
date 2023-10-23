@@ -1,16 +1,17 @@
 package com.example.presentation.ui.navigation
 
+import androidx.activity.ComponentActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import team.pompom.mukmap.model.restaurants.RestaurantsEntity
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(
+    activity: ComponentActivity
+) {
     val navController = rememberNavController()
 
     NavHost(
@@ -20,7 +21,7 @@ fun AppNavigation() {
         composable(
             route = Navigation.Routes.SPLASH
         ) {
-            SplashScreenDestination(navController)
+            SplashScreenDestination(navController) { navController.popOrFinish(activity) }
         }
 
         composable(
@@ -44,7 +45,7 @@ fun AppNavigation() {
                 navController.previousBackStackEntry
                     ?.savedStateHandle
                     ?.set(Navigation.RESTAURANT, restaurant)
-                navController.popBackStack()
+                navController.popOrFinish(activity)
             }
         }
     }
