@@ -45,7 +45,6 @@ import com.example.presentation.ui.screens.main.MainContract
 import com.example.presentation.ui.screens.main.screen.components.MapScreen
 import com.example.presentation.ui.screens.main.screen.components.RestaurantDetail
 import com.example.presentation.ui.screens.main.screen.components.RestaurantDetailClickAction
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flowOf
@@ -75,6 +74,7 @@ fun MainScreen(
     var sizeOfSearchBar by remember { mutableStateOf(0.dp) }
     var sizeOfBottomSheetContentHalf by remember { mutableStateOf(screenHeight.dp) }
     var sizeOfBottomSheetContentCollapsed by remember { mutableStateOf(screenHeight.dp) }
+    var sizeOfDetailContent by remember { mutableStateOf(screenHeight.dp) }
 
     LaunchedEffect(key1 = true) {
         effectFlow.onEach { effect ->
@@ -103,6 +103,7 @@ fun MainScreen(
         expandedHeight = screenHeight.dp - (sizeOfSearchBar + SearchBarBottomMargin + SearchBarTopMargin) + statusBarHeight,
         halfExpandedHeight = (sizeOfBottomSheetContentHalf + statusBarHeight).run { if (LocalInspectionMode.current) this / 2 else this },
         collapsedHeight = (sizeOfBottomSheetContentCollapsed + statusBarHeight).run { if (LocalInspectionMode.current) this / 2 else this },
+        detailContentHeight = sizeOfDetailContent,
         expandedState = expandedState,
         isHeightControlledByHeight = isDetailRestaurantView.not(),
         isCollapsedHeightZero = { isCollapsedHeightZero ->
@@ -160,9 +161,13 @@ fun MainScreen(
         bottomSheetContent = {
             if (isDetailRestaurantView) {
                 state.searchedRestaurant?.let { restaurant ->
-                    expandedState = ExpandedState.FULL
                     Box(
                         modifier = Modifier
+                            .onGloballyPositioned { coordinates ->
+                                with(density) {
+                                    sizeOfDetailContent = coordinates.size.height.toDp()
+                                }
+                            }
                             .padding(start = 20.dp, end = 20.dp, top = 24.dp, bottom = 44.dp)
                             .navigationBarsPadding()
                     ) {

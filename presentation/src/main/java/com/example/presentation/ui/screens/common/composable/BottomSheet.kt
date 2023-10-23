@@ -32,6 +32,7 @@ fun BottomSheet(
     expandedHeight: Dp,
     halfExpandedHeight: Dp,
     collapsedHeight: Dp,
+    detailContentHeight: Dp,
     expandedState: ExpandedState = ExpandedState.COLLAPSED,
     isHeightControlledByHeight: Boolean,
     isCollapsedHeightZero: (controlledByHeight: Boolean) -> Unit = {},
@@ -46,10 +47,13 @@ fun BottomSheet(
     bottomSheetContent: @Composable (ExpandedState) -> Unit,
 ) {
     val height by animateDpAsState(
-        when (expandedState) {
-            ExpandedState.HALF -> halfExpandedHeight
-            ExpandedState.FULL -> expandedHeight
-            ExpandedState.COLLAPSED -> collapsedHeight
+        if (isHeightControlledByHeight.not()) detailContentHeight
+        else {
+            when (expandedState) {
+                ExpandedState.HALF -> halfExpandedHeight
+                ExpandedState.FULL -> expandedHeight
+                ExpandedState.COLLAPSED -> collapsedHeight
+            }
         }, label = ""
     )
 
@@ -115,7 +119,7 @@ fun BottomSheet(
                 bottomSheetContent(expandedState)
             }
         },
-        sheetPeekHeight = if (isHeightControlledByHeight) height else 0.dp
+        sheetPeekHeight = height
     ) {
         entireContent()
     }
