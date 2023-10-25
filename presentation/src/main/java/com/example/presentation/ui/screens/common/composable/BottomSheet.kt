@@ -1,9 +1,12 @@
 package com.example.presentation.ui.screens.common.composable
 
 import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.material.BottomSheetState
@@ -13,11 +16,13 @@ import androidx.compose.material.rememberBottomSheetScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.example.presentation.theme.bottomSheetTopBar
 
 /**
  * ref : https://stackoverflow.com/a/74042822
@@ -80,7 +85,7 @@ fun BottomSheet(
         sheetContent = {
             var isUpdated = false
             Box(
-                Modifier
+                modifier = Modifier
                     .fillMaxWidth()
                     .pointerInput(expandedState) {
                         detectVerticalDragGestures(
@@ -116,6 +121,13 @@ fun BottomSheet(
                         )
                     }
             ) {
+                Box(
+                    modifier = Modifier
+                        .padding(top = 10.dp)
+                        .align(alignment = Alignment.TopCenter)
+                        .background(bottomSheetTopBar, RoundedCornerShape(3.dp))
+                        .size(width = 45.dp, height = 3.dp)
+                )
                 bottomSheetContent(expandedState)
             }
         },

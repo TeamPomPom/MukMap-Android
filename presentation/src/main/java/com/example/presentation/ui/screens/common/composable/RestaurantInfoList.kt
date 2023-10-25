@@ -64,7 +64,7 @@ fun RestaurantInfoList(
                 modifier = Modifier
                     .fillMaxWidth()
                     .clickable { onClickRestaurant.invoke(item) }
-                    .padding(vertical = 20.dp),
+                    .padding(bottom = 20.dp, top = 16.dp),
                 restaurant = item
             )
             if (index < restaurants.lastIndex) Divider(thickness = 1.dp, color = defaultDivider)

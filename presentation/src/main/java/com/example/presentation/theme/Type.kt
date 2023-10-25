@@ -33,22 +33,18 @@ fun titleFont(fontSize: TextUnit) = TextStyle(
     fontFamily = FontFamily.Default,
     fontWeight = FontWeight.Bold,
     fontSize = fontSize,
-    lineHeight = 18.sp,
 )
 
 fun semiTitleFont(fontSize: TextUnit) = TextStyle(
     fontFamily = FontFamily.Default,
     fontWeight = FontWeight.Medium,
     fontSize = fontSize,
-    lineHeight = 14.sp,
 )
 
-fun contentFont(
+fun  contentFont(
     fontSize: TextUnit,
-    lineHeight: TextUnit = 14.sp,
 ) = TextStyle(
     fontFamily = FontFamily.Default,
     fontWeight = FontWeight.Normal,
     fontSize = fontSize,
-    lineHeight = lineHeight,
 )

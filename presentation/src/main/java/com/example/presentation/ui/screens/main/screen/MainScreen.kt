@@ -211,9 +211,8 @@ fun MainScreen(
                             }
                         }
                 ) {
-                    Spacer(modifier = Modifier.height(24.dp))
-                    Text(text = "최근에 방영된 음식점", style = titleFont(20.sp))
                     Spacer(modifier = Modifier.height(20.dp))
+                    Text(text = "최근에 방영된 음식점", style = titleFont(20.sp))
                     RestaurantInfoList(
                         onFirstItemTop = {
                             if (expandedState == ExpandedState.FULL) {
