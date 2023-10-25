@@ -20,13 +20,19 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,6 +54,9 @@ fun RestaurantDetail(
     restaurant: RestaurantsEntity.Restaurant,
     restaurantDetailClickAction: RestaurantDetailClickAction
 ) {
+    val density = LocalDensity.current
+    var sizeOfImage by remember { mutableStateOf(0.dp) }
+
     Column {
         Row(
             modifier = Modifier
@@ -62,7 +71,13 @@ fun RestaurantDetail(
                     modifier = Modifier
                         .background(naverPrimary, RoundedCornerShape(10.dp))
                         .size(width = 66.dp, height = 22.dp)
-                        .clickable { restaurant.naverPlaceId?.let { restaurantDetailClickAction.naverButtonClicked(it) } },
+                        .clickable {
+                            restaurant.naverPlaceId?.let {
+                                restaurantDetailClickAction.naverButtonClicked(
+                                    it
+                                )
+                            }
+                        },
                     contentAlignment = Alignment.Center,
                 ) {
                     Text(
@@ -86,13 +101,18 @@ fun RestaurantDetail(
                 .heightIn(min = 105.dp)
                 .padding(horizontal = 10.dp, vertical = 15.dp)
         ) {
-            Row {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Box(
                     modifier = Modifier
                         .weight(3f)
                         .aspectRatio(1.25f)
                         .clip(RoundedCornerShape(20.dp))
                         .background(Color.Black)
+                        .onGloballyPositioned { coordinates ->
+                            with(density) { sizeOfImage = coordinates.size.height.toDp() }
+                        }
                 ) {
                     AsyncImage(
                         modifier = Modifier
@@ -113,6 +133,7 @@ fun RestaurantDetail(
                 Column(
                     modifier = Modifier
                         .weight(7f)
+                        .height(sizeOfImage)
                         .wrapContentHeight(),
                     verticalArrangement = Arrangement.Center
                 ) {
@@ -129,10 +150,17 @@ fun RestaurantDetail(
                         Text(
                             text = secondTitle,
                             style = contentFont(fontSize = 12.sp),
-                            color = primaryContent
+                            color = primaryContent,
+                            overflow = TextOverflow.Ellipsis,
+                            maxLines = 2,
                         )
                     }
                 }
+                Spacer(modifier = Modifier.width(8.dp))
+                Image(
+                    painter = painterResource(id = R.drawable.ic_expand_right),
+                    contentDescription = null
+                )
             }
         }
     }
