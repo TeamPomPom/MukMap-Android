@@ -41,7 +41,7 @@ fun semiTitleFont(fontSize: TextUnit) = TextStyle(
     fontSize = fontSize,
 )
 
-fun  contentFont(
+fun contentFont(
     fontSize: TextUnit,
 ) = TextStyle(
     fontFamily = FontFamily.Default,
